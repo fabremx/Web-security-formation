@@ -3,7 +3,7 @@ const Authentification = require("./authent.model.js");
 exports.login = (req, res) => {
   if (!req.body || !req.body.user || !req.body.password) {
     return res.status(400).send({
-      message: "Content can not be empty!"
+      message: "User or Password missing!"
     });
   }
   
@@ -20,9 +20,7 @@ exports.login = (req, res) => {
           message: "Incorrect login"
         });
       } else {
-        return res.status(500).send({
-          message: "An internal error occurs during login"
-        });
+        return res.status(500).send(err);
       }
     } else return res.send(data);
   });

@@ -916,6 +916,13 @@
      position: relative;
      margin-bottom: 30px;
 }
+.products-single:hover {
+    cursor: pointer;
+}
+
+.products-single:hover img {
+    opacity: 0.4
+}
  .products-single .box-img-hover{
      overflow: hidden;
      position: relative;
@@ -2595,7 +2602,9 @@
 	border: none;
 }
 
-
+.cart-and-bay-btn {
+    color: white;
+}
 
 
 
