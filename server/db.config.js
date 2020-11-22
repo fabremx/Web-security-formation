@@ -3,8 +3,8 @@ module.exports = {
   MYSQL_USER: "admin",
   MYSQL_PASSWORD: "password",
   MYSQL_DB: "freshshop",
-  MONGODB_HOST: "localhost",
-  MONGODB_USER: "root",
-  MONGODB_PASSWORD: "Passw0rd",
+  MONGODB_HOST: "mongodb",
+  MONGODB_USER: "admin",
+  MONGODB_PASSWORD: "password",
   MONGODB_DB: "freshshop"
 };

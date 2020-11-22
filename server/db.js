@@ -1,10 +1,7 @@
 const mysql = require("mysql");
-const fs = require('fs');
-var readline = require('readline');
 const { MongoClient } = require('mongodb');
 const dbConfig = require("./db.config.js");
 
-// Create a connection to the database
 const connection = mysql.createConnection({
   host: dbConfig.MYSQL_HOST,
   port: 3307,
@@ -13,24 +10,21 @@ const connection = mysql.createConnection({
   database: dbConfig.MYSQL_DB
 });
 
-// open the MySQL connection
 connection.connect(error => {
   if (error) throw error;
   console.log("Successfully connected to mysql database.");
 });
 
-const urlmongo = `mongodb+srv://${dbConfig.MONGODB_USER}:${dbConfig.MONGODB_PASSWORD}@cluster0.3ekbm.mongodb.net/${dbConfig.MONGODB_DB}?retryWrites=true&w=majority`;
-const client = new MongoClient(urlmongo, { useUnifiedTopology: true });
+const urlmongo = `mongodb://${dbConfig.MONGODB_USER}:${dbConfig.MONGODB_PASSWORD}@${dbConfig.MONGODB_HOST}:27017`;
+const client = new MongoClient(urlmongo, { useNewUrlParser: true, useUnifiedTopology: true });
 
-try {
-  client.connect().then(() => {
+client.connect()
+  .then(() => {
     console.log("Successfully connected to mongodb database."); 
   })
-} catch (e) {
-  console.error(e);
-} finally {
-  client.close();
-}
+  .catch((error) => {
+    throw error;
+  });
 
 module.exports = {
   mysql: connection,

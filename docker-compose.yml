@@ -16,6 +16,17 @@ services:
     volumes:
       - ./mysql:/docker-entrypoint-initdb.d
     restart: unless-stopped
+  mongodb:
+      image: mongo:latest
+      container_name: mongodb
+      environment:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: password
+          MONGO_INITDB_DATABASE: freshshop
+      volumes:
+          - ./mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      ports:
+          - "27017:27017"
   client:
     container_name: client
     build:
@@ -32,7 +43,7 @@ services:
       - "3000:3000"
     command: sh -c "/wait && cd server && npm run server"
     environment:
-      - WAIT_HOSTS=mysql:3307
+      - WAIT_HOSTS=mysql:3307, mongodb:27017
       - WAIT_HOSTS_TIMEOUT=300
       - WAIT_SLEEP_INTERVAL=20
       - WAIT_HOST_CONNECT_TIMEOUT=30
