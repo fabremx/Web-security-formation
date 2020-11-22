@@ -4,14 +4,18 @@
   "description": "SQLi formation",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client/ && http-server",
+    "server": "cd server/ && node server.js"
   },
   "author": "fabremx",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "execsql": "0.0.3",
     "express": "^4.17.1",
+    "http-server": "^0.12.3",
     "mongodb": "^3.6.3",
     "mysql": "^2.18.1"
   }

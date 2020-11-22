@@ -1,10 +1,13 @@
 const mysql = require("mysql");
+const fs = require('fs');
+var readline = require('readline');
 const { MongoClient } = require('mongodb');
 const dbConfig = require("./db.config.js");
 
 // Create a connection to the database
 const connection = mysql.createConnection({
   host: dbConfig.MYSQL_HOST,
+  port: 3307,
   user: dbConfig.MYSQL_USER,
   password: dbConfig.MYSQL_PASSWORD,
   database: dbConfig.MYSQL_DB

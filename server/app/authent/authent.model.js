@@ -6,7 +6,7 @@ const Authentification = function(authent) {
 };
 
 Authentification.checkLogin = (authent, result) => {
-  mysql.query(`SELECT * FROM authentification WHERE user = '${authent.user}' AND password = '${authent.password}'`, (err, res) => {
+  mysql.query(`SELECT * FROM users WHERE user = '${authent.user}' AND password = '${authent.password}'`, (err, res) => {
     if (err) {
       result(err, null);
       return;
