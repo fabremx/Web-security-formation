@@ -1,25 +1,27 @@
-const Product = require("./products.model.js");
+const ProductsService = require("./products.service.js");
 
-exports.findOne = (req, res) => {
+async function getProduct(req, res) {
   if (!req.query || !req.query.id) {
     return res.status(400).send({
       message: "Id missing!"
     });
   }
+  
+  const product = {
+    id: parseInt(req.query.id, 10)
+  };
 
-  const product = new Product({
-    id: req.query.id,
-  });
+  try {
+    const response = await ProductsService.getProductById(product)
 
-  Product.findById(product, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        return res.status(404).send({
-          message: `Not found product with id ${req.query.id}.`
-        });
-      } else {
-        return res.status(500).send(err);
-      }
-    } else return res.send(data);
-  });
-};
+    return response.ok
+      ? res.send(response)
+      : res.status(404).send(response)
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+module.exports = {
+  getProduct
+}

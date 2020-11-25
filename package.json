@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client/ && http-server",
-    "server": "cd server/ && node server.js"
+    "server": "cd server/ && nodemon server.js"
   },
   "author": "fabremx",
   "license": "ISC",
@@ -17,6 +17,9 @@
     "express": "^4.17.1",
     "http-server": "^0.12.3",
     "mongodb": "^3.6.3",
-    "mysql": "^2.18.1"
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }

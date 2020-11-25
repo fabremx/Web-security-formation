@@ -1,6 +1,6 @@
 module.exports = app => {
-  const Product = require("./products.controller.js");
+  const ProductsController = require("./products.controller.js");
   const cors = require('cors');
   
-  app.get("/products", cors(), Product.findOne);
+  app.get("/products", cors(), ProductsController.getProduct);
 };
