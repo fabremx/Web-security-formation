@@ -1,5 +1,5 @@
 module.exports = {
-  MYSQL_HOST: "localhost",
+  MYSQL_HOST: "mysql",
   MYSQL_USER: "admin",
   MYSQL_PASSWORD: "password",
   MYSQL_DB: "freshshop",

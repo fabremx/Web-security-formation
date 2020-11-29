@@ -16,13 +16,8 @@ async function logUser(authent) {
 
 async function registerUser(authent) {
   try {
-    const [rows] = await mysql.query(`INSERT INTO users VALUES (0, ${authent.user}, ${authent.password}, 0)`);
-
-    if (rows.length) {
-      return {  ok: true, "message": "User correctly registered" };
-    }
-
-    return { ok: false, message: "Something went wrong !" };
+    await mysql.query(`INSERT INTO users VALUES (0, '${authent.user}', '${authent.password}', 0)`);
+    return {  ok: true, "message": "User correctly registered" };
   } catch (error) {
     throw { type: 'unknown', error }
   }

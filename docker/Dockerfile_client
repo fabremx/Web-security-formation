@@ -3,5 +3,6 @@ WORKDIR /usr/src/client
 COPY ./package*.json ./
 RUN npm install
 COPY ./client .
+COPY ./docker/logs ./logs
 EXPOSE 8080
 CMD [ "npm", "run", "client" ]
