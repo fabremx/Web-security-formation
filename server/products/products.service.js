@@ -1,5 +1,5 @@
-const { mongodb } = require("../../db.js");
-const dbConfig = require("../../db.config.js");
+const { mongodb } = require("../db.js");
+const dbConfig = require("../db.config.js");
 
 async function getProductById(product) {
   try {

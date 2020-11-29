@@ -33,7 +33,7 @@
           <h2>Contact Us</h2>
           <ul class="breadcrumb">
             <li class="breadcrumb-item"><a>Home</a></li>
-            <li class="breadcrumb-item active">Login</li>
+            <li class="breadcrumb-item active">Register</li>
           </ul>
         </div>
       </div>
@@ -42,17 +42,17 @@
   <!-- End All Title Box -->
 
 	<div class="login-page">
-    <h2>Login</h2>
-
+    <h2>Register</h2>
+    
 		<div class="alert alert-danger alert-dismissible fade show" id="invalid-alert" role="alert">
-		  Invalid credentials !
+		  Registration failed !
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		  </button>
 		</div>
 		
 		<div class="alert alert-success alert-dismissible fade show" id="success-alert" role="alert">
-		  Authentification success ! Welcome
+		  Registration success ! Welcome
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		  </button>
@@ -60,10 +60,10 @@
 		
 		<div class="form">
 			<form class="login-form">
-			  <input type="text" placeholder="username" id="user-input" />
-			  <input type="password" placeholder="password" id="password-input"/>
-			  <button id="login-btn">login</button>
-			  <p class="message">Not registered? <a href="/register.html">Create an account</a></p>
+			  <input type="text" placeholder="Choose an username" id="user-input" />
+			  <input type="password" placeholder="Choose a password" id="password-input"/>
+			  <button id="login-btn">Register</button>
+			  <p class="message">Already registered? <a href="/login.html">Login</a></p>
 			</form>
 		</div>
 	</div>
@@ -101,7 +101,7 @@
 			headers.append("Content-Type", "application/json");
             
       try {
-          const response = await fetch("http://localhost:3000/login", {
+          const response = await fetch("http://localhost:3000/register", {
             method: "POST",
             headers: headers,
             body: JSON.stringify({
@@ -117,8 +117,6 @@
 
           const result = await response.json()
           displayAlertBox('success-alert')
-          window.localStorage.setItem("user", result.user.user)
-          window.localStorage.setItem("isAdmin", result.user.isAdmin)
           setTimeout(function(){ document.location.replace("index.html") }, 1700);
       } catch(error) {
           displayAlertBox('success-alert')

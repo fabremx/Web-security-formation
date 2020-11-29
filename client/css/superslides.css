@@ -25,6 +25,7 @@
   z-index: 3;
   top: 46%;
   width: 100%;
+  color: white;
 }
 .slides-navigation a {
   position: absolute;

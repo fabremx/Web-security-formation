@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd client/ && http-server",
-    "server": "cd server/ && nodemon server.js"
+    "client": "cd app & http-server",
+    "server": "nodemon --legacy-watch app/server.js"
   },
   "author": "fabremx",
   "license": "ISC",

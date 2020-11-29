@@ -1,8 +1,8 @@
-FROM node:12.18.4
-WORKDIR /usr/src/app
+FROM node:12.18.4 
+WORKDIR /usr/src/server
 COPY ./package*.json ./
 RUN npm install
-COPY . .
+COPY ./server .
 EXPOSE 3000
 
 # Add docker-compose-wait tool -------------------

@@ -10,18 +10,18 @@ const connection = mysql.createPool({
   database: dbConfig.MYSQL_DB
 });
 
-// const urlmongo = `mongodb://${dbConfig.MONGODB_USER}:${dbConfig.MONGODB_PASSWORD}@${dbConfig.MONGODB_HOST}:27017`;
-// const client = new MongoClient(urlmongo, { useNewUrlParser: true, useUnifiedTopology: true });
+const urlmongo = `mongodb://${dbConfig.MONGODB_USER}:${dbConfig.MONGODB_PASSWORD}@${dbConfig.MONGODB_HOST}:27017`;
+const client = new MongoClient(urlmongo, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// client.connect()
-//   .then(() => {
-//     console.log("Successfully connected to mongodb database."); 
-//   })
-//   .catch((error) => {
-//     throw error;
-//   });
+client.connect()
+  .then(() => {
+    console.log("Successfully connected to mongodb database."); 
+  })
+  .catch((error) => {
+    throw error;
+  });
 
 module.exports = {
   mysql: connection,
-  // mongodb: client
+  mongodb: client
 };

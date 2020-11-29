@@ -1,4 +1,4 @@
-const { mysql } = require("../../db.js");
+const { mysql } = require("../db.js");
 
 async function logUser(authent) {
   try {
