@@ -1,7 +1,7 @@
 const header = document.querySelector('header')
 header.innerHTML = `
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
-    <div class="container">
+    <div class="container" id="header-container">
         <div class="navbar-header">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
@@ -32,6 +32,7 @@ if (window.localStorage.getItem('user')) {
     
     displayLogoutMenu()
     displayWelcomeMessage()
+    displayCartItem()
 } else {
     displayLoginMenu()
     displayRegistrationMenu()
@@ -88,6 +89,24 @@ function displayWelcomeMessage() {
     headerWelcome.innerHTML = `
     <p>Welcome <strong>${window.localStorage.getItem("user")}</strong></p>
     `
+}
+
+function displayCartItem() {
+    const headerContainer = document.getElementById('header-container')
+    const cartItem = document.createElement("div");
+    cartItem.classList.add('attr-nav')
+    cartItem.innerHTML = `
+        <ul>
+            <li class="side-menu">
+                <a href="/cart.html">
+                    <i class="fa fa-shopping-bag"></i>
+                    <span class="badge">3</span>
+                    <p>My Cart</p>
+                </a>
+            </li>
+        </ul>
+    `
+    headerContainer.appendChild(cartItem)  
 }
 
 function logout() {

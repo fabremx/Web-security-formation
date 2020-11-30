@@ -1,0 +1,28 @@
+GET   200 OK 	         49.99.13.16   2019-03-21T21:08:25   /products  
+POST  408 Timeout        12.55.22.88   2019-03-21T21:08:30   /contacts   
+GET   200 OK 	         17.33.10.38   2019-03-21T21:08:30   /products  id=0a7d94fa-3283-11eb-adc1-0242ac120002
+GET   404 Not found      99.12.44.20   2019-03-21T21:08:30   /test
+POST  200 OK             49.99.13.16   2019-03-21T21:08:31   /login     user='jack75',password='44f1471b4598a6f5577221f7caf011743343b8b3b29c9675738cd225055563b7'
+POST  200 OK             12.55.22.88   2019-03-21T21:08:35   /login     user='soso',password='f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9'
+GET   200 OK 	         17.33.10.38   2019-03-21T21:08:37   /products  id='0ded5b2a-3283-11eb-adc1-0242ac120002'
+GET   200 OK 	         27.56.80.20   2019-03-21T21:08:37   /products  id='11537aa6-3283-11eb-adc1-0242ac120002'
+PUT   200 OK             49.99.13.16   2019-03-21T21:08:38   /carts      productId='d0001662-3283-11eb-adc1-0242ac120002'
+POST  401 Unauthorised   99.12.44.20   2019-03-21T21:08:40   /carts      
+GET   200 OK 	         12.55.22.88   2019-03-21T21:08:42   /products  id='160b97d6-3283-11eb-adc1-0242ac120002'
+GET   200 OK 	         49.99.13.16   2019-03-21T21:08:42   /carts  
+POST  200 OK 	         12.55.22.88   2019-03-21T21:08:55   /contact   message='hello' 
+POST  403 Forbidden      49.99.13.16   2019-03-21T21:08:56   /admin     
+POST  200 OK             65.22.41.10   2019-03-21T21:08:57   /login     user='alex1992',password='6382deaf1f5dc6e792b76db4a4a7bf2ba468884e000b25e7928e621e27fb23cb'
+GET   200 OK 	         27.56.80.20   2019-03-21T21:08:58   /products  id='11537aa6-3283-11eb-adc1-0242ac120002'
+GET   200 OK 	         27.56.80.20   2019-03-21T21:08:58   /products  id='160b97d6-3283-11eb-adc1-0242ac120002'
+GET   520 Unknown Error	 49.99.13.16   2019-03-21T21:09:20   /register
+PUT   200 OK             27.56.80.20   2019-03-21T21:08:59   /cart      productId='f539007a-3282-11eb-adc1-0242ac120002'
+POST  200 OK 	         12.55.22.88   2019-03-21T21:08:59   /contact   message='hello2' 
+POST  200 OK             34.55.11.14   2019-03-21T21:09:02   /login     user='admin',password='de362bbdf11f2df30d12f318eeed87b8ee9e0c69c8ba61ed9a57695bbd91e481'
+PUT   200 OK             27.56.80.20   2019-03-21T21:08:59   /cart      productId='fe6fe9e2-3282-11eb-adc1-0242ac120002'
+GET   200 OK 	         12.55.22.88   2019-03-21T21:09:10   /carts  
+POST  200 OK             27.56.80.20   2019-03-21T21:09:15   /login     user='michel-michel',password='37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578'
+GET   520 Unknown Error  49.99.13.16   2019-03-21T21:09:16   /register  
+GET   200 OK             55.21.98.04   2019-03-21T21:09:22   /register  user='jack_du_33',password='89e01536ac207279409d4de1e5253e01f4a1769e696db0d6062ca9b8f56767c8'
+GET   200 OK 	         17.33.10.38   2019-03-21T21:09:22   /carts  
+POST  401 Unauthorised   34.55.11.14   2019-03-21T21:09:25   /login     user='jeanne01',password='fd0163040775df83083d9bddc5f7ee07569b35c068dc0d11379318b259d28511'

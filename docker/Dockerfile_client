@@ -1,8 +1,5 @@
-FROM node:12.18.4
-WORKDIR /usr/src/client
-COPY ./package*.json ./
-RUN npm install
-COPY ./client .
-COPY ./docker/logs ./logs
-EXPOSE 8080
-CMD [ "npm", "run", "client" ]
+FROM nginx:latest
+WORKDIR /usr/share/nginx/html
+RUN rm -rf /usr/share/nginx/html/*
+COPY ./docker/logs/ /usr/share/nginx/
+ENTRYPOINT /bin/bash -x /usr/share/nginx/logs-init.sh && nginx -g 'daemon off;' 

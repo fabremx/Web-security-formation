@@ -326,6 +326,7 @@
 /* Navbar Atribute ------*/
  .attr-nav > ul > li > a{
      padding: 28px 15px;
+     margin-bottom: 4px;
 }
  ul.cart-list > li.total > .btn{
      border-bottom: solid 1px #cfcfcf !important;
@@ -2616,6 +2617,7 @@
 #header-welcome {
     font-size: 22px;
     margin-bottom: 8px;
+    margin-right: 40px;
 }
 
 

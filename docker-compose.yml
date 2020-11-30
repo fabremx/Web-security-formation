@@ -31,9 +31,11 @@ services:
       context: .
       dockerfile: docker/Dockerfile_client
     ports:
-      - "8080:8080"
+      - "8080:80"
     volumes:
-      - ./client/:/usr/src/client/app
+      - ./client/:/usr/share/nginx/html
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /usr/share/nginx/html/logs
   server:
     container_name: server
     build:
