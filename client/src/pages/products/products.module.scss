@@ -1,0 +1,43 @@
+@import "../../assets/styles/colors.scss";
+
+.container {
+  padding: 70px 0px;
+  margin-top: 123px;
+  font-family: "Dosis", sans-serif;
+}
+
+.content {
+  width: 1250px;
+  margin: auto;
+}
+
+.search {
+  position: relative;
+
+  input {
+    background: #333333;
+    border: 0;
+    color: #ffffff;
+    height: 55px;
+    font-size: 16px;
+    padding: 0 20px;
+    transition: all 0.5s ease;
+    width: 100%;
+  }
+
+  button {
+    background: #000000;
+    font-size: 18px;
+    position: absolute;
+    padding: 12px 15px;
+    border: none;
+    cursor: pointer;
+    height: 100%;
+    right: -40px;
+
+    svg {
+      fill: white;
+      width: 16px;
+    }
+  }
+}

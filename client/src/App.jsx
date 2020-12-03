@@ -7,6 +7,9 @@ import { Footer } from "./components/footer";
 import { Login } from "./pages/login";
 import { Snackbar } from "./components/snackbar";
 import { Register } from "./pages/register/register";
+import { Contact } from "./pages/contact/contact";
+import { Products } from "./pages/products";
+import { Product } from "./pages/product";
 
 export function App({ history }) {
   return (
@@ -15,6 +18,9 @@ export function App({ history }) {
       <Snackbar></Snackbar>
 
       <Route exact path="/" component={Home} />
+      <Route exact path="/products" component={Products} />
+      <Route exact path="/product/:id" component={Product} />
+      <Route exact path="/contact" component={Contact} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
 
