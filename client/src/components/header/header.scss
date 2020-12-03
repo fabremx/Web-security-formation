@@ -1,0 +1,101 @@
+@import "../../assets/styles/colors.scss";
+
+header {
+  display: flex;
+  height: 123px;
+  justify-content: center;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  background: $light-background;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.12);
+  z-index: 999;
+}
+
+.content {
+  width: 1250px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  text-align: left;
+
+  a {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+  }
+}
+
+.menu {
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+
+  a,
+  span {
+    position: relative;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 17px;
+    color: $text-primary-lb;
+    text-transform: uppercase;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 25px;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    &:hover {
+      cursor: pointer;
+      color: $text-secondary-lb;
+    }
+    &.active {
+      color: $text-secondary-lb;
+    }
+  }
+}
+
+.welcome-message {
+  font-size: 19px;
+  align-items: center;
+  font-family: "Dosis", sans-serif;
+
+  span {
+    color: $text-secondary-lb;
+    font-weight: 700;
+  }
+}
+
+.cart a {
+  display: flex;
+  width: 93px;
+  font-family: "Dosis", sans-serif;
+  font-size: 15px;
+  color: $text-primary-lb;
+  text-decoration: none;
+
+  .cart-logo {
+    width: 30px;
+    margin-top: 13px;
+    margin-right: 1px;
+
+    path {
+      stroke: $text-secondary-lb;
+    }
+  }
+
+  .badge {
+    font-size: 11px;
+    margin-top: 8px;
+    margin-left: 5px;
+    font-weight: 800;
+  }
+}

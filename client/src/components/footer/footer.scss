@@ -1,0 +1,57 @@
+@import "../../assets/styles/colors.scss";
+
+footer {
+  padding: 70px 0px;
+  background: #010101;
+}
+
+.container {
+  display: flex;
+  width: 1250px;
+  margin: auto;
+
+  .section {
+    flex: 0 0 50%;
+    padding: 0 15px;
+    color: #cccccc;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol";
+
+    h4 {
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    h4::before {
+      border-bottom: 3px solid $text-secondary-lb;
+      content: "";
+      width: 100%;
+      position: absolute;
+      bottom: -7px;
+      left: 0px;
+    }
+
+    .address,
+    .phone,
+    .mail {
+      display: flex;
+      margin-bottom: 10px;
+
+      svg {
+        fill: $text-secondary-lb;
+        width: 16px;
+        margin-right: 10px;
+      }
+
+      a {
+        color: white;
+        margin-left: 7px;
+        text-decoration: none;
+        outline: none;
+      }
+    }
+  }
+}

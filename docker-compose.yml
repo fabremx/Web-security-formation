@@ -25,17 +25,16 @@ services:
         MONGO_INITDB_DATABASE: freshshop
       volumes:
         - ./docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-  client:
-    container_name: client
+  nginx:
+    container_name: nginx
     build:
       context: .
-      dockerfile: docker/Dockerfile_client
+      dockerfile: docker/Dockerfile_nginx
     ports:
       - "8080:80"
     volumes:
-      - ./client/:/usr/share/nginx/html
+      - ./client/build:/usr/share/nginx/html
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - /usr/share/nginx/html/logs
   server:
     container_name: server
     build:
@@ -43,11 +42,20 @@ services:
       dockerfile: docker/Dockerfile_server
     ports:
       - "3000:3000"
-    command: sh -c "/wait && npm run server"
+    command: sh -c "/wait && npm start"
     volumes:
-        - ./server/:/usr/src/server/app
+        - ./server/src/:/usr/src/server/src
     environment:
       - WAIT_HOSTS=mysql:3307, mongodb:27017
       - WAIT_HOSTS_TIMEOUT=300
       - WAIT_SLEEP_INTERVAL=20
       - WAIT_HOST_CONNECT_TIMEOUT=30
+  # client:
+  #   container_name: client
+  #   build:
+  #     context: .
+  #     dockerfile: docker/Dockerfile_client
+  #   volumes:
+  #     - ./test/src/:/client/src
+  #     - ./test/public/:/client/public
+  #     - build:/client/build

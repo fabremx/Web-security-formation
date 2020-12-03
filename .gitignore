@@ -1,2 +1,5 @@
-/node_modules
+server/node_modules
 clear-docker.bat
+client/node_modules
+client/build
+client/.eslintcache

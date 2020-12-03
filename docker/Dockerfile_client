@@ -1,5 +1,4 @@
-FROM nginx:latest
-WORKDIR /usr/share/nginx/html
-RUN rm -rf /usr/share/nginx/html/*
-COPY ./docker/logs/ /usr/share/nginx/
-ENTRYPOINT /bin/bash -x /usr/share/nginx/logs-init.sh && nginx -g 'daemon off;' 
+FROM node:latest
+WORKDIR /client
+COPY ./test/package*.json ./
+ENTRYPOINT /bin/bash -c "npm install && npm run watch"
