@@ -1,23 +1,30 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
 import { ReactComponent as CartLogo } from "../../assets/images/cart.svg";
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { Snackbar } from "../snackbar";
+import { useLocation } from "react-router";
 
 export function Header() {
   const [isUserConnected, setIsUserConnected] = useState(false);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [username, setUsername] = useState(undefined);
+  const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!window.localStorage.getItem("user")) return;
+    if (!window.localStorage.getItem("user")) {
+      return;
+    }
+
     setIsUserConnected(true);
     setUsername(window.localStorage.getItem("user"));
 
     if (window.localStorage.getItem("isAdmin") === "1") {
       setIsUserAdmin(true);
     }
-  }, []);
+  }, [location.pathname]);
 
   const logout = () => {
     window.localStorage.clear();
@@ -25,6 +32,9 @@ export function Header() {
     setIsUserConnected(false);
     setIsUserAdmin(false);
     setUsername(undefined);
+
+    Snackbar.show("Logout successufully", "success");
+    history.push("/");
   };
 
   return (

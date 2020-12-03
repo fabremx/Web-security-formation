@@ -7,9 +7,9 @@ import "./footer.scss";
 export function Footer() {
   return (
     <footer>
-      <div class="footer-main">
-        <div class="container">
-          <div class="section">
+      <div className="footer-main">
+        <div className="container">
+          <div className="section">
             <h4>About Freshshop</h4>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -20,7 +20,7 @@ export function Footer() {
               aliqua.{" "}
             </p>
           </div>
-          <div class="section">
+          <div className="section">
             <h4>Contact Us</h4>
             <div className="address">
               <LocationIcon /> Address: Michael I. Days 3756 <br />
