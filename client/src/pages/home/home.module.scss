@@ -1,6 +1,6 @@
 @import "../../assets/styles/colors.scss";
 
-.home-container {
+.container {
   overflow: hidden;
 }
 
@@ -15,15 +15,19 @@
 
   .message {
     position: absolute;
-    top: 10%;
-    left: 37%;
+    top: 18%;
+    left: 34.7%;
     text-align: center;
     font-family: "Poppins", sans-serif;
     color: white;
 
     h1 {
+      color: white;
       font-size: 64px;
       margin-bottom: 20px;
+      line-height: 120%;
+      font-weight: 700;
+      font-family: "Poppins", sans-serif;
     }
 
     .text {
@@ -38,7 +42,7 @@
       box-shadow: 0 0 1px rgba(0, 0, 0, 0);
       background: $text-secondary-lb;
       width: 113px;
-      height: 36px;
+      height: 50px;
       padding: 6px;
 
       &:hover {
@@ -69,7 +73,7 @@
   font-size: 15px;
   font-family: "Dosis", sans-serif;
 
-  .category-header {
+  .categoryHeader {
     margin-bottom: 30px;
     text-align: center;
 
@@ -87,21 +91,21 @@
     }
   }
 
-  .category-container {
+  .categoryContainer {
     width: 1140px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: auto;
 
-    .category-box {
+    .categoryBox {
       flex: 0 0 33.333333%;
       height: 309px;
       margin: 20px;
       overflow: hidden;
       box-shadow: 9px 9px 30px 0px rgba(0, 0, 0, 0.3);
 
-      .img-box {
+      .imgBox {
         height: 259px;
         overflow: hidden;
 
@@ -122,7 +126,7 @@
         transform: translate3d(10px, 10px, 0);
       }
 
-      .label-box {
+      .labelBox {
         height: 50px;
         background: $text-secondary-lb;
         display: flex;
@@ -148,7 +152,7 @@
   margin-right: auto;
   margin-left: auto;
 
-  .blog-header {
+  .blogHeader {
     margin-bottom: 30px;
     text-align: center;
 
@@ -166,7 +170,7 @@
     }
   }
 
-  .blog-content {
+  .blogContent {
     display: flex;
     flex-wrap: wrap;
     width: 1140px;
@@ -177,19 +181,19 @@
       margin: 0 15px;
       box-shadow: 0px 5px 35px 0px rgba(148, 146, 245, 0.15);
 
-      .img-container {
+      .imgContainer {
         overflow: hidden;
         width: 350px;
         height: 295px;
       }
 
-      .img-container img {
+      .imgContainer img {
         overflow: hidden;
         width: 350px;
         height: 100%;
       }
 
-      .text-container {
+      .textContainer {
         padding: 40px 30px 0 30px;
         font-size: 15px;
 

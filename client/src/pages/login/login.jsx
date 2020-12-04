@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Snackbar } from "../../components/snackbar";
-import "./login.scss";
+import styles from "./login.module.scss";
 
 export function Login() {
   const [username, setUsername] = useState("");
@@ -41,29 +41,17 @@ export function Login() {
   };
 
   return (
-    <div className="login">
+    <div className={styles.login}>
       <h2>Login</h2>
 
-      <div className="form">
-        <form className="login-form" onSubmit={logUser}>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="username"
-            id="user-input"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="password"
-            id="password-input"
-          />
+      <div className={styles.form}>
+        <form onSubmit={logUser}>
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="username" />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
 
-          <button id="login-btn">login</button>
+          <button>login</button>
 
-          <p className="message">
+          <p className={styles.message}>
             Not registered? <Link to="/register">Create an account</Link>
           </p>
         </form>

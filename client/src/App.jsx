@@ -11,6 +11,7 @@ import { Contact } from "./pages/contact/contact";
 import { Products } from "./pages/products";
 import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
+import { Admin } from "./pages/admin";
 
 export function App({ history }) {
   return (
@@ -25,6 +26,7 @@ export function App({ history }) {
       <Route exact path="/contact" component={Contact} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
+      <Route exact path="/admin" component={Admin} />
 
       <Footer></Footer>
     </Router>

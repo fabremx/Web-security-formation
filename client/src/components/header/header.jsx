@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import logo from "../../assets/images/logo.png";
-import { ReactComponent as CartLogo } from "../../assets/images/cart.svg";
-import "./header.scss";
+import { ReactComponent as CartIcon } from "../../assets/images/cart.svg";
+import styles from "./header.module.scss";
 import { Link, useHistory } from "react-router-dom";
 import { Snackbar } from "../snackbar";
 import { useLocation } from "react-router";
+import { Badge } from "antd";
 
 export function Header() {
   const [isUserConnected, setIsUserConnected] = useState(false);
@@ -39,14 +40,14 @@ export function Header() {
 
   return (
     <header>
-      <div className="content">
-        <div className="logo">
-          <a className="navbar-brand" href="index.html">
-            <img src={logo} className="logo" alt="" />
-          </a>
+      <div className={styles.content}>
+        <div className={styles.logo}>
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
 
-        <div className="menu">
+        <div className={styles.menu}>
           <Link to="/">Home</Link>
           <Link to="/products">Products</Link>
           <Link to="/about">About us</Link>
@@ -58,17 +59,20 @@ export function Header() {
         </div>
 
         {isUserConnected && (
-          <div className="welcome-message">
+          <div className={styles.welcomeMessage}>
             Welcome <span>{username}</span>
           </div>
         )}
 
-        <div className="cart">
+        <div className={styles.cartContainer}>
           {isUserConnected && (
-            <Link to="/cart">
-              <CartLogo className="cart-logo" />
-              <p>My Cart</p>
-              <span className="badge">3</span>
+            <Link to="/cart/id">
+              <Badge size="small" count={5} offset={[8, 8]} style={{ backgroundColor: "#ec7a5c" }}>
+                <div className={styles.cart}>
+                  <CartIcon />
+                  <p>My Cart</p>
+                </div>
+              </Badge>
             </Link>
           )}
         </div>

@@ -1,0 +1,49 @@
+@import "../../assets/styles/colors.scss";
+
+.container {
+  padding: 70px 0px;
+  margin-top: 123px;
+  font-family: "Dosis", sans-serif;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1250px;
+  margin: auto;
+
+  h2,
+  h5 {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 30px;
+    line-height: 120% !important;
+    color: #1f1f1f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+
+  h5 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #666666;
+    margin: 0 0 10px;
+  }
+
+  .kpi {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .users,
+  .reviews {
+    width: 100%;
+  }
+}

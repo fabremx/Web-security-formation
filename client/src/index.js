@@ -4,6 +4,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./assets/styles/global.scss";
 import { App } from "./App";
 import { createBrowserHistory } from "history";
+import "antd/dist/antd.css";
 
 const history = createBrowserHistory();
 

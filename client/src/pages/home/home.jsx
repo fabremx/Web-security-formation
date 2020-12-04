@@ -1,4 +1,4 @@
-import "./home.scss";
+import styles from "./home.module.scss";
 import banner from "../../assets/images/banner.jpg";
 import category1 from "../../assets/images/category-01.jpg";
 import category2 from "../../assets/images/category-02.jpg";
@@ -12,127 +12,127 @@ import { ReactComponent as CommentIcon } from "../../assets/images/comment.svg";
 
 export function Home() {
   return (
-    <div className="home-container">
-      <div className="welcome">
-        <div className="banner">
+    <div className={styles.container}>
+      <div className={styles.welcome}>
+        <div className={styles.banner}>
           <img src={banner} alt="welcome img" />
         </div>
-        <div className="background"></div>
-        <div className="message">
+        <div className={styles.background}></div>
+        <div className={styles.message}>
           <h1>
             Welcome To <br /> Footshop
           </h1>
-          <p className="text">
+          <p className={styles.text}>
             Lorem ipsum dolor sit amet, consectetur amet lacus enim adipiscing elit.
             <br /> Sed sit amet lacus enim. Ut finibus cursus nunc sed mollis.
           </p>
 
-          <div className="button">
+          <div className={styles.button}>
             <p>Shop New</p>
           </div>
         </div>
       </div>
 
-      <div className="category">
-        <div className="category-header">
+      <div className={styles.category}>
+        <div className={styles.categoryHeader}>
           <h1>Categories</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
         </div>
-        <div className="category-container">
-          <div className="category-box">
-            <div className="img-box">
+        <div className={styles.categoryContainer}>
+          <div className={styles.categoryBox}>
+            <div className={styles.imgBox}>
               <img src={category1} alt="Category 1" />
             </div>
-            <div className="label-box">Lorem ipsum dolor</div>
+            <div className={styles.labelBox}>Lorem ipsum dolor</div>
           </div>
-          <div className="category-box">
-            <div className="img-box">
+          <div className={styles.categoryBox}>
+            <div className={styles.imgBox}>
               <img src={category2} alt="Category 2" />
             </div>
-            <div className="label-box">Lorem ipsum dolor</div>
+            <div className={styles.labelBox}>Lorem ipsum dolor</div>
           </div>
-          <div className="category-box">
-            <div className="img-box">
+          <div className={styles.categoryBox}>
+            <div className={styles.imgBox}>
               <img src={category3} alt="Category 3" />
             </div>
-            <div className="label-box">Lorem ipsum dolor</div>
+            <div className={styles.labelBox}>Lorem ipsum dolor</div>
           </div>
         </div>
       </div>
 
-      <div className="blog">
-        <div className="blog-header">
+      <div className={styles.blog}>
+        <div className={styles.blogHeader}>
           <h1>Latest Blog</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
         </div>
 
-        <div className="blog-content">
-          <div className="news">
-            <div className="img-container">
+        <div className={styles.blogContent}>
+          <div className={styles.news}>
+            <div className={styles.imgContainer}>
               <img src={blog1} alt="Fusce in augue non nisi fringilla" />
             </div>
-            <div className="text-container">
+            <div className={styles.textContainer}>
               <h3>Fusce in augue non nisi fringilla</h3>
               <p>
                 Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris
                 molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.
               </p>
-              <div className="buttons">
-                <div className="icon">
+              <div className={styles.buttons}>
+                <div className={styles.icon}>
                   <LoveIcon />
                 </div>
-                <div className="icon">
+                <div className={styles.icon}>
                   <ViewIcon />
                 </div>
-                <div className="icon">
+                <div className={styles.icon}>
                   <CommentIcon />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="news">
-            <div className="img-container">
+          <div className={styles.news}>
+            <div className={styles.imgContainer}>
               <img src={blog2} alt="Fusce in augue non nisi fringilla" />
             </div>
-            <div className="text-container">
+            <div className={styles.textContainer}>
               <h3>Fusce in augue non nisi fringilla</h3>
               <p>
                 Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris
                 molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.
               </p>
-              <div className="buttons">
-                <div className="icon">
+              <div className={styles.buttons}>
+                <div className={styles.icon}>
                   <LoveIcon />
                 </div>
-                <div className="icon">
+                <div className={styles.icon}>
                   <ViewIcon />
                 </div>
-                <div className="icon">
+                <div className={styles.icon}>
                   <CommentIcon />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="news">
-            <div className="img-container">
+          <div className={styles.news}>
+            <div className={styles.imgContainer}>
               <img src={blog3} alt="Fusce in augue non nisi fringilla" />
             </div>
-            <div className="text-container">
+            <div className={styles.textContainer}>
               <h3>Fusce in augue non nisi fringilla</h3>
               <p>
                 Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris
                 molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.
               </p>
-              <div className="buttons">
-                <div className="icon">
+              <div className={styles.buttons}>
+                <div className={styles.icon}>
                   <LoveIcon />
                 </div>
-                <div className="icon">
+                <div className={styles.icon}>
                   <ViewIcon />
                 </div>
-                <div className="icon">
+                <div className={styles.icon}>
                   <CommentIcon />
                 </div>
               </div>
