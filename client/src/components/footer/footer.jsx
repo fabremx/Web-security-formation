@@ -22,15 +22,15 @@ export function Footer() {
         <div className={styles.section}>
           <h4>Contact Us</h4>
           <div className={styles.address}>
-            <LocationIcon /> Address: Michael I. Days 3756 <br />
-            Preston Street Wichita,
-            <br /> KS 67213{" "}
+            <LocationIcon /> Address: 10 Rue de la Paix <br />
+            Paris, 75018,
+            <br /> France
           </div>
           <div className={styles.phone}>
-            <PhoneIcon /> Phone: <a href="tel:+1-888705770">+1-888 705 770</a>
+            <PhoneIcon /> Phone: <a href="tel:+1-888705770">+33 1 15 47 87 10</a>
           </div>
           <div className={styles.mail}>
-            <MailIcon /> Email: <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a>
+            <MailIcon /> Email: <a href="mailto:footshop@gmail.com">footshop@gmail.com</a>
           </div>
         </div>
       </div>

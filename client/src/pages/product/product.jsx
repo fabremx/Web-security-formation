@@ -25,16 +25,16 @@ export function Product() {
               finibus suscipit. Curabitur tincidunt convallis arcu.
             </p>
 
-            <div class={styles.quantity}>
+            <div className={styles.quantity}>
               <label>Quantity</label>
-              <input value="0" min="0" max="20" type="number" />
+              <input value="0" min="0" max="20" type="number" required />
             </div>
 
-            <div class={styles.actions}>
-              <button class={styles.buy} data-fancybox-close="">
+            <div className={styles.actions}>
+              <button className={styles.buy} data-fancybox-close="">
                 Buy New
               </button>
-              <button class={styles.cart} data-fancybox-close="">
+              <button className={styles.cart} data-fancybox-close="">
                 Add to cart
               </button>
             </div>

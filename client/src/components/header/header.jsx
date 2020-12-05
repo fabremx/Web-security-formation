@@ -27,6 +27,10 @@ export function Header() {
     }
   }, [location.pathname]);
 
+  const isActive = (pathname) => {
+    return window.location.pathname === pathname;
+  };
+
   const logout = () => {
     window.localStorage.clear();
 
@@ -48,13 +52,33 @@ export function Header() {
         </div>
 
         <div className={styles.menu}>
-          <Link to="/">Home</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/about">About us</Link>
-          <Link to="/contact">Contact us</Link>
-          {!isUserConnected && <Link to="/login">Login</Link>}
-          {!isUserConnected && <Link to="/register">Register</Link>}
-          {isUserAdmin && <Link to="/admin">Administration</Link>}
+          <Link to="/" className={`${isActive("/") ? styles.active : ""}`}>
+            Home
+          </Link>
+          <Link to="/products" className={`${isActive("/products") ? styles.active : ""}`}>
+            Products
+          </Link>
+          <Link to="/about" className={`${isActive("/about") ? styles.active : ""}`}>
+            About us
+          </Link>
+          <Link to="/contact" className={`${isActive("/contact") ? styles.active : ""}`}>
+            Contact us
+          </Link>
+          {!isUserConnected && (
+            <Link to="/login" className={`${isActive("/login") ? styles.active : ""}`}>
+              Login
+            </Link>
+          )}
+          {!isUserConnected && (
+            <Link to="/register" className={`${isActive("/register") ? styles.active : ""}`}>
+              Register
+            </Link>
+          )}
+          {isUserAdmin && (
+            <Link to="/admin" className={`${isActive("/admin") ? styles.active : ""}`}>
+              Administration
+            </Link>
+          )}
           {isUserConnected && <span onClick={logout}>Logout</span>}
         </div>
 

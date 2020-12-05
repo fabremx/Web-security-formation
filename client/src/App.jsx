@@ -4,14 +4,17 @@ import "./assets/styles/global.scss";
 import { Router, Route } from "react-router-dom";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
-import { Login } from "./pages/login";
 import { Snackbar } from "./components/snackbar";
-import { Register } from "./pages/register/register";
-import { Contact } from "./pages/contact/contact";
+import { Login } from "./pages/login";
+import { Register } from "./pages/register";
+import { Contact } from "./pages/contact";
 import { Products } from "./pages/products";
 import { Product } from "./pages/product";
 import { Cart } from "./pages/cart";
 import { Admin } from "./pages/admin";
+import { About } from "./pages/about";
+import { OrderConfirmation } from "./pages/orderConfirmation";
+import { Payement } from "./pages/payement";
 
 export function App({ history }) {
   return (
@@ -20,6 +23,7 @@ export function App({ history }) {
       <Snackbar></Snackbar>
 
       <Route exact path="/" component={Home} />
+      <Route exact path="/about" component={About} />
       <Route exact path="/products" component={Products} />
       <Route exact path="/product/:id" component={Product} />
       <Route exact path="/cart/:id" component={Cart} />
@@ -27,6 +31,8 @@ export function App({ history }) {
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/admin" component={Admin} />
+      <Route exact path="/payement" component={Payement} />
+      <Route exact path="/orderConfirmation" component={OrderConfirmation} />
 
       <Footer></Footer>
     </Router>

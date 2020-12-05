@@ -9,8 +9,15 @@ import blog3 from "../../assets/images/blog-03.jpg";
 import { ReactComponent as LoveIcon } from "../../assets/images/like.svg";
 import { ReactComponent as ViewIcon } from "../../assets/images/eye.svg";
 import { ReactComponent as CommentIcon } from "../../assets/images/comment.svg";
+import { useHistory } from "react-router-dom";
 
 export function Home() {
+  const history = useHistory();
+
+  const goToProducts = () => {
+    history.push("products");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.welcome}>
@@ -27,7 +34,7 @@ export function Home() {
             <br /> Sed sit amet lacus enim. Ut finibus cursus nunc sed mollis.
           </p>
 
-          <div className={styles.button}>
+          <div className={styles.button} onClick={goToProducts}>
             <p>Shop New</p>
           </div>
         </div>
@@ -40,19 +47,19 @@ export function Home() {
         </div>
         <div className={styles.categoryContainer}>
           <div className={styles.categoryBox}>
-            <div className={styles.imgBox}>
+            <div className={styles.imgBox} onClick={goToProducts}>
               <img src={category1} alt="Category 1" />
             </div>
             <div className={styles.labelBox}>Lorem ipsum dolor</div>
           </div>
-          <div className={styles.categoryBox}>
+          <div className={styles.categoryBox} onClick={goToProducts}>
             <div className={styles.imgBox}>
               <img src={category2} alt="Category 2" />
             </div>
             <div className={styles.labelBox}>Lorem ipsum dolor</div>
           </div>
           <div className={styles.categoryBox}>
-            <div className={styles.imgBox}>
+            <div className={styles.imgBox} onClick={goToProducts}>
               <img src={category3} alt="Category 3" />
             </div>
             <div className={styles.labelBox}>Lorem ipsum dolor</div>

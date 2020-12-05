@@ -46,8 +46,8 @@ export function Login() {
 
       <div className={styles.form}>
         <form onSubmit={logUser}>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="username" />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="username" required />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" required />
 
           <button>login</button>
 

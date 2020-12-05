@@ -6,6 +6,9 @@ import styles from "./register.module.scss";
 export function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [address, setAddress] = useState("");
   const history = useHistory();
 
   const registerUser = async (event) => {
@@ -45,8 +48,28 @@ export function Register() {
 
       <div className={styles.form}>
         <form onSubmit={registerUser}>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="username" />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
+          <div className={styles.formGroup}>
+            <input
+              type="text"
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+              placeholder="firstname"
+              required
+            />
+            <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} placeholder="lastname" required />
+          </div>
+
+          <input
+            type="text"
+            className={styles.address}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="address"
+            required
+          />
+
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="username" required />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" required />
 
           <button>Register</button>
 

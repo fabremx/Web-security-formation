@@ -4,12 +4,11 @@ import { ReactComponent as SearchIcon } from "../../assets/images/search.svg";
 export function Products() {
   return (
     <div className={styles.container}>
-      <div class={styles.content}>
+      <div className={styles.content}>
         <form action="#" className={styles.search}>
-          <input class="form-control" placeholder="Search here..." type="text" />
+          <input placeholder="Search here..." type="text" />
           <button type="submit">
-            {" "}
-            <SearchIcon />{" "}
+            <SearchIcon />
           </button>
         </form>
       </div>

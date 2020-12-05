@@ -2,6 +2,7 @@ import styles from "./cart.module.scss";
 import Product1 from "../../assets/images/product-01.jpg";
 import { ReactComponent as RemoveIcon } from "../../assets/images/remove.svg";
 import { Link } from "react-router-dom";
+import { OrderSummary } from "../../components/orderSummary";
 
 export function Cart() {
   return (
@@ -33,7 +34,7 @@ export function Cart() {
                   <p>$ 80.0</p>
                 </td>
                 <td className={styles.quantity}>
-                  <input type="number" size="4" value="1" min="0" step="1" />
+                  <input type="number" size="4" defaultValue="1" min="0" step="1" />
                 </td>
                 <td className={styles.total}>
                   <p>$ 80.0</p>
@@ -58,41 +59,17 @@ export function Cart() {
           </div>
         </div>
 
-        <div className={styles.resume}>
-          <div className={styles.summary}>
+        <div className={styles.summary}>
+          <div className={styles.summaryContent}>
             <h3>Order summary</h3>
-            <div className={styles.element}>
-              <h4>Sub Total</h4>
-              <div> $ 130 </div>
-            </div>
-            <div className={styles.element}>
-              <h4>Discount</h4>
-              <div> $ 40 </div>
-            </div>
-            <hr />
-            <div className={styles.element}>
-              <h4>Coupon Discount</h4>
-              <div> $ 10 </div>
-            </div>
-            <div className={styles.element}>
-              <h4>Tax</h4>
-              <div> $ 2 </div>
-            </div>
-            <div className={styles.element}>
-              <h4>Shipping Cost</h4>
-              <div> Free </div>
-            </div>
-            <hr />
-            <div className={`${styles.element} ${styles.total}`}>
-              <h5>Total</h5>
-              <div> $ 388 </div>
-            </div>
-            <hr />
+            <OrderSummary />
           </div>
         </div>
 
-        <div class={styles.submit}>
-          <button>Checkout</button>
+        <div className={styles.submit}>
+          <Link to="/payement">
+            <button>Checkout</button>
+          </Link>
         </div>
       </div>
     </div>

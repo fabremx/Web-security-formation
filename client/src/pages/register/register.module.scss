@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .register {
-  width: 360px;
+  width: 500px;
   margin: 123px auto 0;
   padding: 40px 0 0;
 
@@ -19,12 +19,30 @@
   position: relative;
   z-index: 1;
   background: #ffffff;
-  max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
   font-family: "Roboto", sans-serif;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+  .formGroup {
+    display: flex;
+
+    input {
+      flex: 0 0 48%;
+
+      &:first-child {
+        margin-right: 10px;
+      }
+      &:last-child {
+        margin-left: 6px;
+      }
+    }
+  }
+
+  .address {
+    margin-bottom: 30px;
+  }
 
   input {
     outline: 0;
