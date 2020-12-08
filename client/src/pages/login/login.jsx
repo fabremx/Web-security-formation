@@ -19,7 +19,7 @@ export function Login() {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
-          user: username,
+          username: username,
           password: password,
         }),
       });
@@ -32,7 +32,8 @@ export function Login() {
       const result = await response.json();
       Snackbar.show("Authentification success ! Welcome", "success");
 
-      window.localStorage.setItem("user", result.user.user);
+      window.localStorage.setItem("username", result.user.username);
+      window.localStorage.setItem("cartId", result.user.cartId);
       window.localStorage.setItem("isAdmin", result.user.isAdmin);
       history.push("/");
     } catch (error) {

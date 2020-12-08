@@ -1,45 +1,93 @@
+import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import styles from "./product.module.scss";
-import product1 from "../../assets/images/product-01.jpg";
+import { Snackbar } from "../../components/snackbar";
+import { useHistory } from "react-router-dom";
 
 export function Product() {
+  const [product, setProduct] = useState("");
+  const history = useHistory();
+  const [cookies, setCookie] = useCookies(["cart"]);
+
+  const cartId = window.localStorage.getItem("cartId");
+
+  useEffect(() => {
+    getProduct();
+  }, []);
+
+  const getProduct = async () => {
+    const id = window.location.pathname.split("/").pop();
+
+    try {
+      const response = await fetch(`http://localhost:3000/product?id=${id}`, {
+        method: "GET",
+      });
+
+      if (response.status !== 200) {
+        Snackbar.show("Registration failed !", "error");
+        return;
+      }
+
+      const result = await response.json();
+      setProduct(result.product);
+    } catch (error) {
+      Snackbar.show("Something went wrong", "error");
+    }
+  };
+
+  const goToCart = () => {
+    addToCart();
+    history.push("/cart/id");
+  };
+
+  const addToCart = () => {
+    if (!cookies.cart) {
+      setCookie("cart", product._id, { path: "/" });
+    } else {
+      const cartItems = cookies.cart;
+      setCookie("cart", `${cartItems},${product._id}`, { path: "/" });
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.product}>
-          <div className={styles.photo}>
-            <img src={product1} alt="" />
-          </div>
-
-          <div className={styles.info}>
-            <h2>Previous Next Fachion Lorem ipsum dolor sit amet</h2>
-            <h5>
-              <del>$ 60.00</del> $40.79
-            </h5>
-
-            <p className={styles.stock}> More than 20 available</p>
-            <h4>Short Description:</h4>
-            <p className={styles.description}>
-              Nam sagittis a augue eget scelerisque. Nullam lacinia consectetur sagittis. Nam sed neque id eros fermentum
-              dignissim quis at tortor. Nullam ultricies urna quis sem sagittis pharetra. Nam erat turpis, cursus in ipsum at,
-              tempor imperdiet metus. In interdum id nulla tristique accumsan. Ut semper in quam nec pretium. Donec egestas
-              finibus suscipit. Curabitur tincidunt convallis arcu.
-            </p>
-
-            <div className={styles.quantity}>
-              <label>Quantity</label>
-              <input value="0" min="0" max="20" type="number" required />
+        {product && (
+          <div className={styles.product}>
+            <div className={styles.photo}>
+              <img src={product.image} alt={product.title} />
             </div>
 
-            <div className={styles.actions}>
-              <button className={styles.buy} data-fancybox-close="">
-                Buy New
-              </button>
-              <button className={styles.cart} data-fancybox-close="">
-                Add to cart
-              </button>
+            <div className={styles.info}>
+              <h2>{product.title}</h2>
+              <h5>
+                <del>$ 60.00</del> ${product.price}
+              </h5>
+
+              <p className={styles.stock}> More than 20 available</p>
+              <h4>Short Description:</h4>
+              <p className={styles.description}>{product.description}</p>
+
+              <div className={styles.quantity}>
+                <label>Quantity</label>
+                <input defaultValue="1" min="0" max="20" type="number" required />
+              </div>
+
+              <div className={styles.actions}>
+                {cartId && (
+                  <>
+                    <button className={styles.buy} onClick={goToCart}>
+                      Buy New
+                    </button>
+                    <button className={styles.cart} onClick={addToCart}>
+                      Add to cart
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div className={styles.reviews}>
           <div className={styles.header}>

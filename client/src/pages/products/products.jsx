@@ -9,17 +9,28 @@ export function Products() {
   const [searchTemplate, setSearchTemplate] = useState("");
 
   useEffect(() => {
-    console.log("whuuuuuttt");
-    getProducst();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getProducts();
   }, []);
+
+  const goToProduct = (id) => {
+    window.location.href = `product/${id}`;
+  };
+
+  const setOnclick = () => {
+    const products = document.getElementsByClassName("product");
+
+    for (let product of products) {
+      const id = product.getAttribute("data-id");
+      product.onclick = () => goToProduct(id);
+    }
+  };
 
   const submitSearch = (event) => {
     event.preventDefault();
-    getProducst();
+    getProducts();
   };
 
-  const getProducst = async () => {
+  const getProducts = async () => {
     const url = search ? `http://localhost:3000/products?search=${search}` : "http://localhost:3000/products";
 
     try {
@@ -32,6 +43,8 @@ export function Products() {
     } catch (error) {
       Snackbar.show("Something went wrong", "error");
     }
+
+    setOnclick();
   };
 
   return (

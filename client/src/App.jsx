@@ -14,7 +14,6 @@ import { Cart } from "./pages/cart";
 import { Admin } from "./pages/admin";
 import { About } from "./pages/about";
 import { OrderConfirmation } from "./pages/orderConfirmation";
-import { Payement } from "./pages/payement";
 
 export function App({ history }) {
   return (
@@ -31,7 +30,6 @@ export function App({ history }) {
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/admin" component={Admin} />
-      <Route exact path="/payement" component={Payement} />
       <Route exact path="/orderConfirmation" component={OrderConfirmation} />
 
       <Footer></Footer>

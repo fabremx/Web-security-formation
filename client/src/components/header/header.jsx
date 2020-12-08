@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import logo from "../../assets/images/logo.png";
 import { ReactComponent as CartIcon } from "../../assets/images/cart.svg";
 import styles from "./header.module.scss";
@@ -11,21 +12,33 @@ export function Header() {
   const [isUserConnected, setIsUserConnected] = useState(false);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [username, setUsername] = useState(undefined);
+  const [cookies] = useCookies(["cart"]);
+  const [cartItemsNumber, setCartItemsNumber] = useState(0);
   const history = useHistory();
   const location = useLocation();
 
   useEffect(() => {
-    if (!window.localStorage.getItem("user")) {
+    if (!window.localStorage.getItem("username")) {
       return;
     }
 
     setIsUserConnected(true);
-    setUsername(window.localStorage.getItem("user"));
+    setUsername(window.localStorage.getItem("username"));
 
     if (window.localStorage.getItem("isAdmin") === "1") {
       setIsUserAdmin(true);
     }
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!cookies || !cookies.cart) {
+      setCartItemsNumber(0);
+      return;
+    }
+
+    const items = cookies.cart.split(",");
+    setCartItemsNumber(items.length);
+  }, [cookies]);
 
   const isActive = (pathname) => {
     return window.location.pathname === pathname;
@@ -90,8 +103,8 @@ export function Header() {
 
         <div className={styles.cartContainer}>
           {isUserConnected && (
-            <Link to="/cart/id">
-              <Badge size="small" count={5} offset={[8, 8]} style={{ backgroundColor: "#ec7a5c" }}>
+            <Link to={`/cart/${window.localStorage.getItem("cartId")}`}>
+              <Badge size="small" count={cartItemsNumber} offset={[8, 8]} style={{ backgroundColor: "#ec7a5c" }}>
                 <div className={styles.cart}>
                   <CartIcon />
                   <p>My Cart</p>

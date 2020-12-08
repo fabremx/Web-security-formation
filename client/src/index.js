@@ -4,13 +4,16 @@ import reportWebVitals from "./reportWebVitals";
 import "./assets/styles/global.scss";
 import { App } from "./App";
 import { createBrowserHistory } from "history";
+import { CookiesProvider } from "react-cookie";
 import "antd/dist/antd.css";
 
 const history = createBrowserHistory();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App history={history} />
+    <CookiesProvider>
+      <App history={history} />
+    </CookiesProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

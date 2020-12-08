@@ -1,4 +1,4 @@
-db = db.getSiblingDB("freshshop");
+db = db.getSiblingDB("footshop");
 db.createCollection("products");
 db.products.insert([
   {

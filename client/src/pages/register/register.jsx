@@ -22,8 +22,11 @@ export function Register() {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
-          user: username,
-          password: password,
+          username,
+          password,
+          firstname,
+          lastname,
+          address,
         }),
       });
 

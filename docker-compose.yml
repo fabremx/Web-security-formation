@@ -6,7 +6,7 @@ services:
     container_name: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: 'freshshop'
+      MYSQL_DATABASE: 'footshop'
       MYSQL_USER: 'admin'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
@@ -22,7 +22,7 @@ services:
       environment:
         MONGO_INITDB_ROOT_USERNAME: root
         MONGO_INITDB_ROOT_PASSWORD: password
-        MONGO_INITDB_DATABASE: freshshop
+        MONGO_INITDB_DATABASE: footshop
       volumes:
         - ./docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
   nginx:
