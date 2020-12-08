@@ -1,6 +1,7 @@
-module.exports = app => {
+module.exports = (app) => {
   const ProductsController = require("./products.controller.js");
-  const cors = require('cors');
-  
-  app.get("/products", cors(), ProductsController.getProduct);
+  const cors = require("cors");
+
+  app.get("/products", cors(), ProductsController.getProducts);
+  app.get("/product", cors(), ProductsController.getProduct);
 };

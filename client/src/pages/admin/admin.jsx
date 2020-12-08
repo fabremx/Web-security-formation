@@ -1,6 +1,7 @@
 import styles from "./admin.module.scss";
 import { Table, Tag, Space } from "antd";
-import { Statistic, Card, Row, Col, Divider, List, Typography } from "antd";
+import { Link } from "react-router-dom";
+import { Statistic, Card, Divider, List, Typography } from "antd";
 import { ArrowUpOutlined, ArrowDownOutlined, LikeOutlined } from "@ant-design/icons";
 
 const data = [
@@ -31,7 +32,7 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text) => <a>{text}</a>,
+    render: (text) => <Link>{text}</Link>,
   },
   {
     title: "Age",
@@ -68,8 +69,8 @@ const columns = [
     key: "action",
     render: (text, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <Link>Invite {record.name}</Link>
+        <Link>Delete</Link>
       </Space>
     ),
   },

@@ -1,0 +1,12 @@
+#products__result
+    if (search)
+        h2.ss__title Results for search: #{search}
+    .ss__products
+        each product in products
+            .product
+                .product__photo
+                    img(src="#{product.image}" alt="Image Title")
+                .product__info
+                    h4.product__info--title #{product.title}
+                    h6.product__info--description #{product.description}
+                    h5.product__info--price $#{product.price}
