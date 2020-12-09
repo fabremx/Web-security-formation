@@ -35,9 +35,9 @@ export function Product() {
     }
   };
 
-  const goToCart = () => {
+  const goToProducts = () => {
     addToCart();
-    history.push("/cart/id");
+    history.push("/products");
   };
 
   const addToCart = () => {
@@ -47,6 +47,8 @@ export function Product() {
       const cartItems = cookies.cart;
       setCookie("cart", `${cartItems},${product._id}`, { path: "/" });
     }
+
+    Snackbar.show("Product successfully added to cart", "success");
   };
 
   return (
@@ -61,7 +63,7 @@ export function Product() {
             <div className={styles.info}>
               <h2>{product.title}</h2>
               <h5>
-                <del>$ 60.00</del> ${product.price}
+                <del>$ 180.00</del> ${product.price}
               </h5>
 
               <p className={styles.stock}> More than 20 available</p>
@@ -76,10 +78,7 @@ export function Product() {
               <div className={styles.actions}>
                 {cartId && (
                   <>
-                    <button className={styles.buy} onClick={goToCart}>
-                      Buy New
-                    </button>
-                    <button className={styles.cart} onClick={addToCart}>
+                    <button className={styles.cart} onClick={goToProducts}>
                       Add to cart
                     </button>
                   </>

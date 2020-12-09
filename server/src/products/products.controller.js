@@ -1,38 +1,61 @@
 const ProductsService = require("./products.service.js");
 
-async function getProducts(req, res) {
-  let response;
-
+async function getAllProducts(req, res) {
   try {
-    if (!req.query.search) {
-      response = await ProductsService.getProducts();
-    } else {
-      console.log("req.query.search", req.query.search);
-      response = await ProductsService.getProductsBySearch(req.query.search);
+    const response = await ProductsService.getAllProducts();
+
+    if (!response.ok) {
+      return res.status(404).send(response);
     }
 
-    return response.ok
-      ? res.render("search", {
-          products: response.products,
-          search: req.query.search,
-        })
-      : res.status(404).send(response);
+    return res.render("search", {
+      products: response.products,
+    });
   } catch (error) {
-    console.log(error);
     return res.status(500).send(error);
   }
 }
 
-async function getProduct(req, res) {
-  if (!req.params || !req.params.id) {
-    return res.status(400).send({
-      message: "Id missing!",
-    });
+async function getProductsBySearch(req, res) {
+  if (!req.query.q) {
+    return res.status(400).send({ message: "search missing!" });
   }
 
-  const id = parseInt(req.params.id, 10);
-
   try {
+    const response = await ProductsService.getProductsBySearch(req.query.q);
+
+    if (!response.ok) {
+      return res.status(404).send(response);
+    }
+
+    return res.render("search", {
+      products: response.products,
+      search: req.query.q,
+    });
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+async function getProductsByIds(req, res) {
+  try {
+    const idsArray = req.params.ids.split(",");
+    const ids = idsArray.map((id) => parseInt(id, 10));
+    const response = await ProductsService.getProductsByIds(ids);
+
+    if (!response.ok) {
+      return res.status(404).send(response);
+    }
+
+    return response.ok ? res.send(response) : res.status(404).send(response);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+async function getProductById(req, res) {
+  try {
+    const id = parseInt(req.params.id, 10);
     const response = await ProductsService.getProductById(id);
 
     return response.ok ? res.send(response) : res.status(404).send(response);
@@ -42,6 +65,8 @@ async function getProduct(req, res) {
 }
 
 module.exports = {
-  getProducts,
-  getProduct,
+  getAllProducts,
+  getProductsBySearch,
+  getProductsByIds,
+  getProductById,
 };

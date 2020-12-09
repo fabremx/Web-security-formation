@@ -14,7 +14,6 @@ async function getUserInfoByCartId(req, res) {
 
     return response.ok ? res.send(response) : res.status(404).send(response);
   } catch (error) {
-    console.log(error);
     return res.status(500).send(error);
   }
 }

@@ -40,7 +40,6 @@ export function Register() {
 
       history.push("/");
     } catch (error) {
-      console.log(error);
       Snackbar.show("Something went wrong", "error");
     }
   };

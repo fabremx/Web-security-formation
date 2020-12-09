@@ -2,18 +2,21 @@ import { useState, useEffect } from "react";
 import styles from "./products.module.scss";
 import { ReactComponent as SearchIcon } from "../../assets/images/search.svg";
 import { Snackbar } from "../../components/snackbar";
+import { useHistory } from "react-router-dom";
 import "./products.scss";
 
 export function Products() {
   const [search, setSearch] = useState("");
   const [searchTemplate, setSearchTemplate] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const goToProduct = (id) => {
-    window.location.href = `product/${id}`;
+    history.push(`product/${id}`);
   };
 
   const setOnclick = () => {
@@ -31,7 +34,7 @@ export function Products() {
   };
 
   const getProducts = async () => {
-    const url = search ? `http://localhost:3000/products?search=${search}` : "http://localhost:3000/products";
+    const url = search ? `http://localhost:3000/products/search?q=${search}` : "http://localhost:3000/products";
 
     try {
       const response = await fetch(url, {

@@ -4,7 +4,7 @@ db.products.insert([
   {
     _id: 1,
     title: "Sneaker Puma RS-X3",
-    price: 40.99,
+    price: 80.99,
     description:
       "Class aptent taciti sociosqu ad litora torquent per conubia nostra.",
     image: "https://i.ibb.co/xYcSffS/867d09dcc622e637719811f163fdc19f.webp",
@@ -12,7 +12,7 @@ db.products.insert([
   {
     _id: 2,
     title: "Onitsuka Mexico 66",
-    price: 35.25,
+    price: 65.25,
     description:
       "Nam sagittis a augue eget scelerisque. Nullam lacinia consectetur.",
     image: "https://i.ibb.co/qdQCFBH/4117367-500-A.jpg",
@@ -35,7 +35,7 @@ db.products.insert([
   {
     _id: 5,
     title: "Nike Air Force 1",
-    price: 30.12,
+    price: 70.12,
     description: "Praesent id libero vitae dui commodo faucibus sed id neque.",
     image: "https://i.ibb.co/qWYVdMJ/41ad9b32a2dc5b15709bf79597e43ae7.webp",
   },

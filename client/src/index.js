@@ -10,11 +10,9 @@ import "antd/dist/antd.css";
 const history = createBrowserHistory();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <CookiesProvider>
-      <App history={history} />
-    </CookiesProvider>
-  </React.StrictMode>,
+  <CookiesProvider>
+    <App history={history} />
+  </CookiesProvider>,
   document.getElementById("root")
 );
 

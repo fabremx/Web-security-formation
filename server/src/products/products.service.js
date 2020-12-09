@@ -1,7 +1,7 @@
 const { mongodb } = require("../db.js");
 const dbConfig = require("../db.config.js");
 
-async function getProducts() {
+async function getAllProducts() {
   try {
     const response = await mongodb
       .db(dbConfig.MONGODB_DB)
@@ -29,13 +29,29 @@ async function getProductsBySearch(search) {
       })
       .toArray();
 
-    console.log("response", response);
-
     if (response) {
       return { ok: true, products: response };
     }
 
     return { ok: false, message: "Products not found !" };
+  } catch (err) {
+    throw { type: "unknown", error };
+  }
+}
+
+async function getProductsByIds(ids) {
+  try {
+    const response = await mongodb
+      .db(dbConfig.MONGODB_DB)
+      .collection("products")
+      .find({ _id: { $in: ids } })
+      .toArray();
+
+    if (response) {
+      return { ok: true, products: response };
+    }
+
+    return { ok: false, message: "Product(s) not found !" };
   } catch (err) {
     throw { type: "unknown", error };
   }
@@ -59,7 +75,8 @@ async function getProductById(id) {
 }
 
 module.exports = {
-  getProducts,
+  getAllProducts,
   getProductsBySearch,
+  getProductsByIds,
   getProductById,
 };

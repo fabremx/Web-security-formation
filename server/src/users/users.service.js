@@ -6,8 +6,6 @@ async function getUserInfoByCartId(id) {
       `SELECT * FROM users_info WHERE cartId = '${id}'`
     );
 
-    console.log(rows);
-
     if (rows.length) {
       return {
         ok: true,

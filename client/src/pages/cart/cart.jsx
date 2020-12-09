@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import styles from "./cart.module.scss";
 import { ReactComponent as RemoveIcon } from "../../assets/images/remove.svg";
 import { Link } from "react-router-dom";
-import { OrderSummary } from "../../components/orderSummary";
 import Payement1 from "../../assets/images/payement-01.png";
 import Payement2 from "../../assets/images/payement-02.png";
 import Payement3 from "../../assets/images/payement-03.png";
@@ -15,11 +14,12 @@ import { useCookies } from "react-cookie";
 export function Cart() {
   const [user, setUser] = useState(undefined);
   const [products, setProducts] = useState([]);
-  const [cookies] = useCookies(["cart"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["cart"]);
 
   useEffect(() => {
     getUserInfo();
-    // getCartProducts();
+    getCartProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getUserInfo = async () => {
@@ -45,8 +45,12 @@ export function Cart() {
   const getCartProducts = async () => {
     const productIds = cookies.cart;
 
+    if (!productIds) {
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:3000/products?ids=${productIds}`, {
+      const response = await fetch(`http://localhost:3000/products/${productIds}`, {
         method: "GET",
       });
 
@@ -60,6 +64,48 @@ export function Cart() {
     } catch (error) {
       Snackbar.show("Something went wrong", "error");
     }
+  };
+
+  const removeProduct = (idToRemove) => {
+    const idsArray = cookies.cart.split(",");
+    const filteredIds = idsArray.filter((id) => id !== idToRemove.toString());
+    const newProducts = products.filter((product) => product._id !== idToRemove);
+
+    updateCartCookie(filteredIds);
+    setProducts(newProducts);
+  };
+
+  const updateCartCookie = (filteredIds) => {
+    if (!filteredIds.length) {
+      removeCookie("cart", { path: "/" });
+      return;
+    }
+
+    const ids = filteredIds.join(",");
+    setCookie("cart", ids, { path: "/" });
+  };
+
+  const getProductQuantity = (id) => {
+    return cookies.cart.split(",").reduce((acc, current) => {
+      if (current === id.toString()) return (acc += 1);
+      return acc;
+    }, 0);
+  };
+
+  const calculTotalProductsPrice = () => {
+    return products.reduce((acc, current) => {
+      return (acc += getProductQuantity(current._id) * current.price);
+    }, 0);
+  };
+
+  const calculTotal = () => {
+    const productsPrice = calculTotalProductsPrice();
+
+    if (productsPrice <= 0) {
+      return 0;
+    }
+
+    return productsPrice - 40 - 10 + 2;
   };
 
   return (
@@ -79,10 +125,10 @@ export function Cart() {
             </thead>
             <tbody>
               {products.map((product) => (
-                <tr>
+                <tr key={product._id}>
                   <td className={styles.photo}>
                     <Link to={`/product/${product._id}`}>
-                      <img src={product.images} alt="product" />
+                      <img src={product.image} alt="product" />
                     </Link>
                   </td>
                   <td className={styles.name}>
@@ -92,13 +138,13 @@ export function Cart() {
                     <p>$ {product.price}</p>
                   </td>
                   <td className={styles.quantity}>
-                    <input type="number" size="4" defaultValue="1" min="0" step="1" />
+                    <input type="number" size="4" defaultValue={getProductQuantity(product._id)} min="0" step="1" disabled />
                   </td>
                   <td className={styles.total}>
                     <p>$ {product.price}</p>
                   </td>
                   <td className={styles.remove}>
-                    <RemoveIcon />
+                    <RemoveIcon onClick={() => removeProduct(product._id)} />
                   </td>
                 </tr>
               ))}
@@ -112,9 +158,6 @@ export function Cart() {
             <div className={styles.apply}>
               <button type="button">Apply Coupon</button>
             </div>
-          </div>
-          <div className={styles.updateCart}>
-            <button type="button">Update Cart</button>
           </div>
         </div>
 
@@ -200,12 +243,46 @@ export function Cart() {
             <div className={styles.summaryRight}>
               <h3>Order summary</h3>
 
-              <OrderSummary />
+              <>
+                <div className={styles.element}>
+                  <h4>Sub Total</h4>
+                  <div> $ {calculTotalProductsPrice().toFixed(2)} </div>
+                </div>
+                {products.length > 0 && (
+                  <>
+                    <div className={styles.element}>
+                      <h4>Discount</h4>
+                      <div> $ 40 </div>
+                    </div>
+                    <hr />
+                    <div className={styles.element}>
+                      <h4>Coupon Discount</h4>
+                      <div> $ 10 </div>
+                    </div>
+                    <div className={styles.element}>
+                      <h4>Tax</h4>
+                      <div> $ 2 </div>
+                    </div>
+                    <div className={styles.element}>
+                      <h4>Shipping Cost</h4>
+                      <div> Free </div>
+                    </div>
+                  </>
+                )}
+                <hr />
+                <div className={`${styles.element} ${styles.total}`}>
+                  <h5>Total</h5>
+                  <div> $ {calculTotal().toFixed(2)} </div>
+                </div>
+                <hr />
+              </>
 
               <div className={styles.submit}>
-                <Link to="/orderConfirmation">
-                  <button>Buy</button>
-                </Link>
+                {products.length > 0 && (
+                  <Link to="/orderConfirmation">
+                    <button>Buy</button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
