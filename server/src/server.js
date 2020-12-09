@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./auth/auth.routes.js")(app);
 require("./products/products.routes.js")(app);
+require("./users/users.routes.js")(app);
 
 // set port, listen for requests
 app.listen(3000, () => {

@@ -3,5 +3,5 @@ module.exports = (app) => {
   const cors = require("cors");
 
   app.get("/products", cors(), ProductsController.getProducts);
-  app.get("/product", cors(), ProductsController.getProduct);
+  app.get("/product/:id", cors(), ProductsController.getProduct);
 };

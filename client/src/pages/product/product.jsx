@@ -19,7 +19,7 @@ export function Product() {
     const id = window.location.pathname.split("/").pop();
 
     try {
-      const response = await fetch(`http://localhost:3000/product?id=${id}`, {
+      const response = await fetch(`http://localhost:3000/product/${id}`, {
         method: "GET",
       });
 

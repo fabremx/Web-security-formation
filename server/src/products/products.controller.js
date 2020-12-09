@@ -24,13 +24,13 @@ async function getProducts(req, res) {
 }
 
 async function getProduct(req, res) {
-  if (!req.query || !req.query.id) {
+  if (!req.params || !req.params.id) {
     return res.status(400).send({
       message: "Id missing!",
     });
   }
 
-  const id = parseInt(req.query.id, 10);
+  const id = parseInt(req.params.id, 10);
 
   try {
     const response = await ProductsService.getProductById(id);
