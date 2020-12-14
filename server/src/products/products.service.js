@@ -14,7 +14,7 @@ async function getAllProducts() {
     }
 
     return { ok: false, message: "Products not found !" };
-  } catch (err) {
+  } catch (error) {
     throw { type: "unknown", error };
   }
 }
@@ -34,7 +34,7 @@ async function getProductsBySearch(search) {
     }
 
     return { ok: false, message: "Products not found !" };
-  } catch (err) {
+  } catch (error) {
     throw { type: "unknown", error };
   }
 }
@@ -52,7 +52,7 @@ async function getProductsByIds(ids) {
     }
 
     return { ok: false, message: "Product(s) not found !" };
-  } catch (err) {
+  } catch (error) {
     throw { type: "unknown", error };
   }
 }
@@ -69,7 +69,42 @@ async function getProductById(id) {
     }
 
     return { ok: false, message: "Product not found !" };
-  } catch (err) {
+  } catch (error) {
+    throw { type: "unknown", error };
+  }
+}
+
+async function getProductReviewsById(id) {
+  try {
+    const response = await mongodb
+      .db(dbConfig.MONGODB_DB)
+      .collection("reviews")
+      .find({ productId: id })
+      .toArray();
+
+    if (response) {
+      return { ok: true, reviews: response };
+    }
+
+    return { ok: false, message: "Review(s) not found !" };
+  } catch (error) {
+    throw { type: "unknown", error };
+  }
+}
+
+async function postProductReview(id, message) {
+  try {
+    const response = await mongodb
+      .db(dbConfig.MONGODB_DB)
+      .collection("reviews")
+      .insertOne({ message, productId: id });
+
+    if (response) {
+      return { ok: true };
+    }
+
+    return { ok: false, message: "Add review failed !" };
+  } catch (error) {
     throw { type: "unknown", error };
   }
 }
@@ -79,4 +114,6 @@ module.exports = {
   getProductsBySearch,
   getProductsByIds,
   getProductById,
+  getProductReviewsById,
+  postProductReview,
 };

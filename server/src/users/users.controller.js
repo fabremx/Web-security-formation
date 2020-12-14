@@ -18,6 +18,17 @@ async function getUserInfoByCartId(req, res) {
   }
 }
 
+async function getUserInfo(req, res) {
+  try {
+    const response = await UsersService.getUserInfoById(req.session.userId);
+
+    return response.ok ? res.send(response) : res.status(404).send(response);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 module.exports = {
   getUserInfoByCartId,
+  getUserInfo,
 };

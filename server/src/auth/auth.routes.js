@@ -1,7 +1,7 @@
-module.exports = app => {
+module.exports = (app) => {
   const AuthController = require("./auth.controller.js");
-  const cors = require('cors');
 
-  app.post("/login", cors(), AuthController.login);
-  app.post("/register", cors(), AuthController.register);
+  app.post("/login", AuthController.login);
+  app.post("/register", AuthController.register);
+  app.post("/logout", AuthController.logout);
 };

@@ -36,9 +36,13 @@ export function Products() {
   const getProducts = async () => {
     const url = search ? `http://localhost:3000/products/search?q=${search}` : "http://localhost:3000/products";
 
+    var headers = new Headers();
+    headers.append("Access-Control-Allow-Credentials", true);
+
     try {
       const response = await fetch(url, {
         method: "GET",
+        credentials: "include",
       });
 
       const template = await response.text();

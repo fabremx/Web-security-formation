@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import logo from "../../assets/images/logo.png";
+import avatar from "../../assets/images/avatar.png";
 import { ReactComponent as CartIcon } from "../../assets/images/cart.svg";
 import styles from "./header.module.scss";
 import { Link, useHistory } from "react-router-dom";
@@ -44,15 +45,29 @@ export function Header() {
     return window.location.pathname === pathname;
   };
 
-  const logout = () => {
-    window.localStorage.clear();
+  const logout = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/logout", {
+        method: "POST",
+        credentials: "include",
+      });
 
-    setIsUserConnected(false);
-    setIsUserAdmin(false);
-    setUsername(undefined);
+      if (response.status !== 200) {
+        Snackbar.show("Unable to logout user!", "error");
+        return;
+      }
 
-    Snackbar.show("Logout successufully", "success");
-    history.push("/");
+      window.localStorage.clear();
+
+      setIsUserConnected(false);
+      setIsUserAdmin(false);
+      setUsername(undefined);
+
+      Snackbar.show("Logout successufully", "success");
+      history.push("/");
+    } catch (error) {
+      Snackbar.show("Something went wrong", "error");
+    }
   };
 
   return (
@@ -95,12 +110,6 @@ export function Header() {
           {isUserConnected && <span onClick={logout}>Logout</span>}
         </div>
 
-        {isUserConnected && (
-          <div className={styles.welcomeMessage}>
-            Welcome <span>{username}</span>
-          </div>
-        )}
-
         <div className={styles.cartContainer}>
           {isUserConnected && (
             <Link to={`/cart/${window.localStorage.getItem("cartId")}`}>
@@ -113,6 +122,17 @@ export function Header() {
             </Link>
           )}
         </div>
+
+        {isUserConnected && (
+          <Link to="/profile">
+            <div className={styles.profile}>
+              <div className={styles.avatar}>
+                <img src={avatar} alt="Generic avatar" />
+              </div>
+              <div className={styles.username}>{username}</div>
+            </div>
+          </Link>
+        )}
       </div>
     </header>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./cart.module.scss";
 import { ReactComponent as RemoveIcon } from "../../assets/images/remove.svg";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Payement1 from "../../assets/images/payement-01.png";
 import Payement2 from "../../assets/images/payement-02.png";
 import Payement3 from "../../assets/images/payement-03.png";
@@ -15,6 +15,7 @@ export function Cart() {
   const [user, setUser] = useState(undefined);
   const [products, setProducts] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["cart"]);
+  const history = useHistory();
 
   useEffect(() => {
     getUserInfo();
@@ -28,6 +29,7 @@ export function Cart() {
     try {
       const response = await fetch(`http://localhost:3000/user/${cartId}`, {
         method: "GET",
+        credentials: "include",
       });
 
       if (response.status !== 200) {
@@ -43,14 +45,12 @@ export function Cart() {
   };
 
   const getCartProducts = async () => {
-    const productIds = cookies.cart;
-
-    if (!productIds) {
+    if (!cookies.cart) {
       return;
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/products/${productIds}`, {
+      const response = await fetch(`http://localhost:3000/products/${cookies.cart}`, {
         method: "GET",
       });
 
@@ -86,6 +86,8 @@ export function Cart() {
   };
 
   const getProductQuantity = (id) => {
+    if (!cookies.cart) return 0;
+
     return cookies.cart.split(",").reduce((acc, current) => {
       if (current === id.toString()) return (acc += 1);
       return acc;
@@ -106,6 +108,36 @@ export function Cart() {
     }
 
     return productsPrice - 40 - 10 + 2;
+  };
+
+  const sendOrder = async () => {
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    try {
+      const response = await fetch("http://localhost:3000/order", {
+        method: "POST",
+        credentials: "include",
+        headers,
+        body: JSON.stringify({
+          products,
+          user,
+          date: Date.now(),
+          total: calculTotal(),
+        }),
+      });
+
+      if (response.status !== 200) {
+        Snackbar.show("Order failed !", "error");
+        return;
+      }
+
+      removeCookie("cart", { path: "/" });
+      Snackbar.show("Order successfully sent !", "success");
+      history.push("/orderConfirmation");
+    } catch (error) {
+      Snackbar.show("Something went wrong", "error");
+    }
   };
 
   return (
@@ -148,6 +180,7 @@ export function Cart() {
                   </td>
                 </tr>
               ))}
+              {products.length === 0 && <p className={styles.noProducts}>No products in cart</p>}
             </tbody>
           </table>
         </div>
@@ -277,13 +310,7 @@ export function Cart() {
                 <hr />
               </>
 
-              <div className={styles.submit}>
-                {products.length > 0 && (
-                  <Link to="/orderConfirmation">
-                    <button>Buy</button>
-                  </Link>
-                )}
-              </div>
+              <div className={styles.submit}>{products.length > 0 && <button onClick={sendOrder}>Buy</button>}</div>
             </div>
           </div>
         )}

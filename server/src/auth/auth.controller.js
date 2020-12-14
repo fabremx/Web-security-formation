@@ -13,7 +13,12 @@ async function login(req, res) {
   try {
     const response = await AuthService.logUser(user);
 
-    return response.ok ? res.send(response) : res.status(404).send(response);
+    if (!response.ok) {
+      return res.status(404).send(response);
+    }
+
+    req.session.userId = response.user.userId;
+    return res.send(response);
   } catch (error) {
     return res.status(500).send(error);
   }
@@ -50,7 +55,19 @@ async function register(req, res) {
   }
 }
 
+async function logout(req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send({ message: "Unable to logout user!" });
+    }
+
+    res.clearCookie("sid");
+    return res.status(200).send({ message: "User successfully logout!" });
+  });
+}
+
 module.exports = {
   login,
   register,
+  logout,
 };

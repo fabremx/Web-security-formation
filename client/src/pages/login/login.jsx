@@ -18,6 +18,7 @@ export function Login() {
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: headers,
+        credentials: "include",
         body: JSON.stringify({
           username: username,
           password: password,

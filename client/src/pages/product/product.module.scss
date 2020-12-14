@@ -155,6 +155,7 @@
             padding: 0.25rem;
             border: 1px solid #dee2e6;
             border-radius: 50%;
+            width: 70px;
           }
         }
 
@@ -189,6 +190,35 @@
 
   .footer {
     padding: 0 20px 20px;
+
+    .reviewForm {
+      .inputGroup {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: 15px;
+          margin-bottom: 0px;
+          line-height: 24px;
+        }
+
+        textarea {
+          min-height: 40px;
+          border-radius: 0px;
+          border: 1px solid #e8e8e8;
+          box-shadow: none;
+          font-size: 14px;
+
+          &:focus {
+            border: 1px solid $text-secondary-lb;
+          }
+        }
+      }
+
+      .buttons {
+        margin-top: 20px;
+      }
+    }
 
     button {
       padding: 10px 20px;

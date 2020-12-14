@@ -1,9 +1,15 @@
 module.exports = (app) => {
   const ProductsController = require("./products.controller.js");
-  const cors = require("cors");
+  const { validAutenthication } = require("../middlewares/auth.middleware.js");
 
-  app.get("/products", cors(), ProductsController.getAllProducts);
-  app.get("/products/search", cors(), ProductsController.getProductsBySearch);
-  app.get("/products/:ids", cors(), ProductsController.getProductsByIds);
-  app.get("/product/:id", cors(), ProductsController.getProductById);
+  app.get("/products", ProductsController.getAllProducts);
+  app.get("/products/search", ProductsController.getProductsBySearch);
+  app.get("/products/:ids", ProductsController.getProductsByIds);
+  app.get("/product/:id", ProductsController.getProductById);
+  app.get("/product/:id/reviews", ProductsController.getProductReviewsById);
+  app.post(
+    "/product/:id/review",
+    validAutenthication,
+    ProductsController.postProductReview
+  );
 };

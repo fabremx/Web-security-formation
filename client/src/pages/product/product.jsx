@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import styles from "./product.module.scss";
+import avatar from "../../assets/images/avatar.png";
 import { Snackbar } from "../../components/snackbar";
 import { useHistory } from "react-router-dom";
 
 export function Product() {
   const [product, setProduct] = useState("");
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState("");
+  const [leavingReview, setLeavingReview] = useState(false);
   const history = useHistory();
   const [cookies, setCookie] = useCookies(["cart"]);
 
@@ -13,6 +17,7 @@ export function Product() {
 
   useEffect(() => {
     getProduct();
+    getProductReviews();
   }, []);
 
   const getProduct = async () => {
@@ -24,12 +29,32 @@ export function Product() {
       });
 
       if (response.status !== 200) {
-        Snackbar.show("Registration failed !", "error");
+        Snackbar.show("Product fetch failed !", "error");
         return;
       }
 
       const result = await response.json();
       setProduct(result.product);
+    } catch (error) {
+      Snackbar.show("Something went wrong", "error");
+    }
+  };
+
+  const getProductReviews = async () => {
+    const id = window.location.pathname.split("/").pop();
+
+    try {
+      const response = await fetch(`http://localhost:3000/product/${id}/reviews`, {
+        method: "GET",
+      });
+
+      if (response.status !== 200) {
+        Snackbar.show("Reviews fetch failed !", "error");
+        return;
+      }
+
+      const result = await response.json();
+      setReviews(result.reviews);
     } catch (error) {
       Snackbar.show("Something went wrong", "error");
     }
@@ -49,6 +74,42 @@ export function Product() {
     }
 
     Snackbar.show("Product successfully added to cart", "success");
+  };
+
+  const cancelReview = () => {
+    setNewReview("");
+    setLeavingReview(!leavingReview);
+  };
+
+  const sendReview = async (e) => {
+    e.preventDefault();
+    const id = window.location.pathname.split("/").pop();
+
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    try {
+      const response = await fetch(`http://localhost:3000/product/${id}/review`, {
+        method: "POST",
+        headers,
+        credentials: "include",
+        body: JSON.stringify({
+          message: newReview,
+        }),
+      });
+
+      if (response.status === 401) {
+        Snackbar.show("Unauthorized !", "error");
+        return;
+      } else if (response.status !== 200) {
+        Snackbar.show("Add review failed !", "error");
+        return;
+      }
+
+      getProductReviews();
+    } catch (error) {
+      Snackbar.show("Something went wrong", "error");
+    }
   };
 
   return (
@@ -72,7 +133,7 @@ export function Product() {
 
               <div className={styles.quantity}>
                 <label>Quantity</label>
-                <input defaultValue="1" min="0" max="20" type="number" required />
+                <input defaultValue="1" min="0" max="20" type="number" required disabled />
               </div>
 
               <div className={styles.actions}>
@@ -94,72 +155,44 @@ export function Product() {
           </div>
 
           <div className={styles.body}>
-            <div className={styles.review}>
-              <div className={styles.content}>
-                <div className={styles.avatar}>
-                  <img
-                    src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-                    alt="Generic avatar"
-                  />
-                </div>
-                <div className={styles.text}>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-                    necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-                    necessitatibus quae sint natus.
-                  </p>
-                  <small>Posted by Anonymous on 3/1/18</small>
-                </div>
-              </div>
+            {reviews.length > 0 &&
+              reviews.map((review) => (
+                <div className={styles.review} key={review._id}>
+                  <div className={styles.content}>
+                    <div className={styles.avatar}>
+                      <img src={avatar} alt="Generic avatar" />
+                    </div>
+                    <div className={styles.text}>
+                      <div dangerouslySetInnerHTML={{ __html: review.message }} />
+                      <small>Posted by Anonymous on 3/1/18</small>
+                    </div>
+                  </div>
 
-              <div className={styles.divider} />
-            </div>
-
-            <div className={styles.review}>
-              <div className={styles.content}>
-                <div className={styles.avatar}>
-                  <img
-                    src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-                    alt="Generic avatar"
-                  />
+                  <div className={styles.divider} />
                 </div>
-                <div className={styles.text}>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-                    necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-                    necessitatibus quae sint natus.
-                  </p>
-                  <small>Posted by Anonymous on 3/1/18</small>
-                </div>
-              </div>
+              ))}
 
-              <div className={styles.divider} />
-            </div>
-
-            <div className={styles.review}>
-              <div className={styles.content}>
-                <div className={styles.avatar}>
-                  <img
-                    src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-                    alt="Generic avatar"
-                  />
-                </div>
-                <div className={styles.text}>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-                    necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-                    necessitatibus quae sint natus.
-                  </p>
-                  <small>Posted by Anonymous on 3/1/18</small>
-                </div>
-              </div>
-
-              <div className={styles.divider} />
-            </div>
+            {reviews.length === 0 && <p>No Reviews</p>}
           </div>
 
           <div className={styles.footer}>
-            <button>Leave a Review</button>
+            {leavingReview && (
+              <form className={styles.reviewForm}>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="review">Review *</label>
+                  <textarea type="text" value={newReview} onChange={(e) => setNewReview(e.target.value)} required />
+                </div>
+
+                <div className={styles.buttons}>
+                  <button onClick={() => cancelReview()}>Cancel Review</button>
+                  <button type="submit" onClick={(e) => sendReview(e)}>
+                    Send
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {!leavingReview && <button onClick={() => setLeavingReview(!leavingReview)}>Leave a Review</button>}
           </div>
         </div>
       </div>

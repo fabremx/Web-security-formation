@@ -11,6 +11,7 @@ async function logUser(authent) {
         ok: true,
         message: "User correctly logged",
         user: {
+          userId: rows[0].id,
           username: rows[0].username,
           isAdmin: rows[0].isAdmin,
           cartId: rows[0].cartId,

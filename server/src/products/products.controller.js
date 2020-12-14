@@ -64,9 +64,40 @@ async function getProductById(req, res) {
   }
 }
 
+async function getProductReviewsById(req, res) {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const response = await ProductsService.getProductReviewsById(id);
+
+    return response.ok ? res.send(response) : res.status(404).send(response);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
+async function postProductReview(req, res) {
+  if (!req.body || !req.body.message) {
+    return res.status(400).send({ message: "message missing!" });
+  }
+
+  try {
+    const id = parseInt(req.params.id, 10);
+    const response = await ProductsService.postProductReview(
+      id,
+      req.body.message
+    );
+
+    return response.ok ? res.send(response) : res.status(404).send(response);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+}
+
 module.exports = {
   getAllProducts,
   getProductsBySearch,
   getProductsByIds,
   getProductById,
+  getProductReviewsById,
+  postProductReview,
 };
