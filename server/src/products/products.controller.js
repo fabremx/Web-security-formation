@@ -1,4 +1,5 @@
 const ProductsService = require("./products.service.js");
+// const xml2js = require("xml2js");
 
 async function getAllProducts(req, res) {
   try {
@@ -79,6 +80,11 @@ async function postProductReview(req, res) {
   if (!req.body || !req.body.message) {
     return res.status(400).send({ message: "message missing!" });
   }
+
+  // const parser = new xml2js.Parser();
+  // const parsedBody = await parser.parseStringPromise(
+  //   req.body.message.replace("\ufeff", "")
+  // );
 
   try {
     const id = parseInt(req.params.id, 10);

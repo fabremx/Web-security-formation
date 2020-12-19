@@ -10,15 +10,7 @@ async function getUserInfoByCartId(id) {
       return {
         ok: true,
         message: "User corretcly fetched",
-        user: {
-          id: rows[0].id,
-          firstname: rows[0].firstname,
-          lastname: rows[0].lastname,
-          address: rows[0].address,
-          creditCardNumber: rows[0].creditCardNumber,
-          creditCardCVV: rows[0].creditCardCVV,
-          creditCardExpiration: rows[0].creditCardExpiration,
-        },
+        user: rows[0],
       };
     }
 
@@ -41,15 +33,7 @@ async function getUserInfoById(id) {
       return {
         ok: true,
         message: "User corretcly fetched",
-        user: {
-          id: rows[0].id,
-          firstname: rows[0].firstname,
-          lastname: rows[0].lastname,
-          address: rows[0].address,
-          creditCardNumber: rows[0].creditCardNumber,
-          creditCardCVV: rows[0].creditCardCVV,
-          creditCardExpiration: rows[0].creditCardExpiration,
-        },
+        user: rows[0],
       };
     }
 

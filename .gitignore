@@ -1,4 +1,5 @@
 server/node_modules
+server/src/assets
 clear-docker.bat
 client/node_modules
 client/build

@@ -86,6 +86,7 @@ export function Product() {
     const id = window.location.pathname.split("/").pop();
 
     var headers = new Headers();
+    // headers.append("Content-Type", "text/xml");
     headers.append("Content-Type", "application/json");
 
     try {

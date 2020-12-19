@@ -1,0 +1,23 @@
+@import "../../assets/styles/colors.scss";
+
+.avatar {
+  margin-right: 0.5rem;
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  img {
+    padding: 0.25rem;
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+  }
+
+  svg {
+    position: absolute;
+    width: 20px;
+    bottom: 2px;
+    right: 18px;
+  }
+}

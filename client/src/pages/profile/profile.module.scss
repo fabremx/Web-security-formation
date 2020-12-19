@@ -41,12 +41,20 @@
 
     .avatar {
       margin-right: 0.5rem;
+      position: relative;
 
       img {
         padding: 0.25rem;
         border: 1px solid #dee2e6;
         border-radius: 50%;
         width: 150px;
+        height: 150px;
+      }
+
+      .editIcon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
       }
     }
 

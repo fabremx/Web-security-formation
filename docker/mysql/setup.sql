@@ -7,6 +7,7 @@ CREATE TABLE `footshop`.`users_info` (
   `firstname` VARCHAR(45) NULL,
   `lastname` VARCHAR(45) NULL,
   `address` VARCHAR(255) NULL,
+  `avatarURL` VARCHAR(255) NULL,
   `cartId` INT NULL,
   `creditCardNumber` VARCHAR(20) NULL,
   `creditCardExpiration` VARCHAR(20) NULL,
@@ -18,6 +19,6 @@ CREATE TABLE `footshop`.`users_info` (
     REFERENCES `footshop`.`users` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
-INSERT INTO `footshop`.`users_info` VALUES(1, 'Bill', 'Dupond', '10 Rue de la paix', 1000, "357691504880233", "04/12/2024", "548", 1);
-INSERT INTO `footshop`.`users_info` VALUES(2, 'Jack', 'Martin', '35 Rue de la république', 1001, "6011614443490927", "04/12/2024", "145", 2);
-INSERT INTO `footshop`.`users_info` VALUES(3, 'Jeanne', 'Willson', '120 Place du marche', 1002, "4950192654772927", "04/12/2024", "005", 3);
+INSERT INTO `footshop`.`users_info` VALUES(1, 'Bill', 'Dupond', '10 Rue de la paix', null, 1000, "357691504880233", "04/12/2024", "548", 1);
+INSERT INTO `footshop`.`users_info` VALUES(2, 'Jack', 'Martin', '35 Rue de la république', null, 1001, "6011614443490927", "04/12/2024", "145", 2);
+INSERT INTO `footshop`.`users_info` VALUES(3, 'Jeanne', 'Willson', '120 Place du marche', null, 1002, "4950192654772927", "04/12/2024", "005", 3);

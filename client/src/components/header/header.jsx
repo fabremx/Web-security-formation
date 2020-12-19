@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import logo from "../../assets/images/logo.png";
-import avatar from "../../assets/images/avatar.png";
 import { ReactComponent as CartIcon } from "../../assets/images/cart.svg";
 import styles from "./header.module.scss";
 import { Link, useHistory } from "react-router-dom";
 import { Snackbar } from "../snackbar";
 import { useLocation } from "react-router";
 import { Badge } from "antd";
+import { UserAvatar } from "../userAvatar";
+import authApi from "../../api/auth.api";
+import { usersService } from "../../services/users.service";
 
 export function Header() {
-  const [isUserConnected, setIsUserConnected] = useState(false);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
+  const [user, setUser] = useState(undefined);
   const [username, setUsername] = useState(undefined);
   const [cookies] = useCookies(["cart"]);
   const [cartItemsNumber, setCartItemsNumber] = useState(0);
@@ -19,17 +21,25 @@ export function Header() {
   const location = useLocation();
 
   useEffect(() => {
+    usersService.getUser().subscribe((user) => {
+      setUser(user);
+    });
+  }, []);
+
+  useEffect(() => {
     if (!window.localStorage.getItem("username")) {
+      setUser(undefined);
+      setIsUserAdmin(false);
+      setUsername(undefined);
       return;
     }
 
-    setIsUserConnected(true);
     setUsername(window.localStorage.getItem("username"));
 
     if (window.localStorage.getItem("isAdmin") === "1") {
       setIsUserAdmin(true);
     }
-  }, [location.pathname]);
+  }, [location.pathname, user]);
 
   useEffect(() => {
     if (!cookies || !cookies.cart) {
@@ -47,19 +57,10 @@ export function Header() {
 
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost:3000/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await authApi.logout();
+      if (!response.ok) return;
 
-      if (response.status !== 200) {
-        Snackbar.show("Unable to logout user!", "error");
-        return;
-      }
-
-      window.localStorage.clear();
-
-      setIsUserConnected(false);
+      setUser(undefined);
       setIsUserAdmin(false);
       setUsername(undefined);
 
@@ -92,12 +93,12 @@ export function Header() {
           <Link to="/contact" className={`${isActive("/contact") ? styles.active : ""}`}>
             Contact us
           </Link>
-          {!isUserConnected && (
+          {!user && (
             <Link to="/login" className={`${isActive("/login") ? styles.active : ""}`}>
               Login
             </Link>
           )}
-          {!isUserConnected && (
+          {!user && (
             <Link to="/register" className={`${isActive("/register") ? styles.active : ""}`}>
               Register
             </Link>
@@ -107,11 +108,11 @@ export function Header() {
               Administration
             </Link>
           )}
-          {isUserConnected && <span onClick={logout}>Logout</span>}
+          {user && <span onClick={logout}>Logout</span>}
         </div>
 
         <div className={styles.cartContainer}>
-          {isUserConnected && (
+          {user && (
             <Link to={`/cart/${window.localStorage.getItem("cartId")}`}>
               <Badge size="small" count={cartItemsNumber} offset={[8, 8]} style={{ backgroundColor: "#ec7a5c" }}>
                 <div className={styles.cart}>
@@ -123,12 +124,10 @@ export function Header() {
           )}
         </div>
 
-        {isUserConnected && (
+        {user && (
           <Link to="/profile">
             <div className={styles.profile}>
-              <div className={styles.avatar}>
-                <img src={avatar} alt="Generic avatar" />
-              </div>
+              <UserAvatar style={styles.avatar} avatarURL={user.avatarURL} />
               <div className={styles.username}>{username}</div>
             </div>
           </Link>

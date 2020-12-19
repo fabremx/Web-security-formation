@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import authApi from "../../api/auth.api";
 import { Snackbar } from "../../components/snackbar";
+import { usersService } from "../../services/users.service";
 import styles from "./login.module.scss";
 
 export function Login() {
@@ -11,35 +13,16 @@ export function Login() {
   const logUser = async (event) => {
     event.preventDefault();
 
-    var headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    const response = await authApi.login(username, password);
+    if (!response.ok) return;
 
-    try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: headers,
-        credentials: "include",
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      });
+    Snackbar.show("Authentification success ! Welcome", "success");
 
-      if (response.status !== 200) {
-        Snackbar.show("Invalid credentials !", "error");
-        return;
-      }
-
-      const result = await response.json();
-      Snackbar.show("Authentification success ! Welcome", "success");
-
-      window.localStorage.setItem("username", result.user.username);
-      window.localStorage.setItem("cartId", result.user.cartId);
-      window.localStorage.setItem("isAdmin", result.user.isAdmin);
-      history.push("/");
-    } catch (error) {
-      Snackbar.show("Something went wrong", "error");
-    }
+    window.localStorage.setItem("username", response.user.username);
+    window.localStorage.setItem("cartId", response.user.cartId);
+    window.localStorage.setItem("isAdmin", response.user.isAdmin);
+    usersService.setUser();
+    history.push("/");
   };
 
   return (

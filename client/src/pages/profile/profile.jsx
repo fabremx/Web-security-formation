@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import styles from "./profile.module.scss";
-import avatar from "../../assets/images/avatar.png";
+import { UserAvatar } from "../../components/userAvatar";
 import { Divider } from "antd";
-import { Snackbar } from "../../components/snackbar";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import usersApi from "../../api/users.api";
+import ordersApi from "../../api/orders.api";
 
 export function Profile() {
   const [user, setUser] = useState(undefined);
   const [orders, setOrders] = useState([]);
-  const history = useHistory();
 
   useEffect(() => {
     getUser();
@@ -17,49 +17,17 @@ export function Profile() {
   }, []);
 
   const getUser = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/user", {
-        method: "GET",
-        credentials: "include",
-      });
+    const response = await usersApi.getUserInfo();
+    if (!response.ok) return;
 
-      if (response.status === 401) {
-        Snackbar.show("Unauthorized !", "error");
-        history.push("/");
-        return;
-      } else if (response.status !== 200) {
-        Snackbar.show("Registration failed !", "error");
-        return;
-      }
-
-      const result = await response.json();
-      setUser(result.user);
-    } catch (error) {
-      Snackbar.show("Something went wrong", "error");
-    }
+    setUser(response.user);
   };
 
   const getOrders = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/orders", {
-        method: "GET",
-        credentials: "include",
-      });
+    const response = await ordersApi.getOrders();
+    if (!response.ok) return;
 
-      if (response.status === 401) {
-        Snackbar.show("Unauthorized !", "error");
-        history.push("/");
-        return;
-      } else if (response.status !== 200) {
-        Snackbar.show("Order(s) fetch failed !", "error");
-        return;
-      }
-
-      const result = await response.json();
-      setOrders(result.orders);
-    } catch (error) {
-      Snackbar.show("Something went wrong", "error");
-    }
+    setOrders(response.orders);
   };
 
   return (
@@ -69,9 +37,8 @@ export function Profile() {
 
         {user && (
           <div className={styles.card}>
-            <div className={styles.avatar}>
-              <img src={avatar} alt="Generic avatar" />
-            </div>
+            <UserAvatar style={styles.avatar} avatarURL={user.avatarURL} edit={true} />
+
             <div className={styles.info}>
               <p>
                 <span className={styles.key}>Firstname:</span> {user.firstname}

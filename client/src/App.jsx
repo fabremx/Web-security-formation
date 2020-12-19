@@ -15,8 +15,11 @@ import { Admin } from "./pages/admin";
 import { About } from "./pages/about";
 import { OrderConfirmation } from "./pages/orderConfirmation";
 import { Profile } from "./pages/profile";
+import { usersService } from "./services/users.service";
 
 export function App({ history }) {
+  usersService.initUser();
+
   return (
     <Router history={history}>
       <Header></Header>
