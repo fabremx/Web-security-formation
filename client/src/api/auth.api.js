@@ -18,7 +18,7 @@ const login = async (username, password) => {
     });
 
     if (response.status !== 200) {
-      handleError(response, "Invalid credentials !");
+      handleError(response.status, "Invalid credentials !");
       return { ok: false };
     }
 
@@ -26,6 +26,7 @@ const login = async (username, password) => {
     return { ok: true, user: result.user };
   } catch (error) {
     Snackbar.show("Something went wrong", "error");
+    return { ok: false };
   }
 };
 
@@ -46,6 +47,7 @@ const logout = async () => {
     return { ok: true };
   } catch (error) {
     Snackbar.show("Something went wrong", "error");
+    return { ok: false };
   }
 };
 

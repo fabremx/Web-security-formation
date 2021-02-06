@@ -34,6 +34,7 @@ app.use(
   })
 );
 app.use(function (_req, res, next) {
+  res.setHeader("Content-Type", "application/json");
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -47,7 +48,7 @@ app.use(function (_req, res, next) {
 
   next();
 });
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/assets", express.static(__dirname + "/assets"));
 
 require("./auth/auth.routes.js")(app);

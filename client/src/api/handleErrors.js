@@ -1,8 +1,8 @@
 const { Snackbar } = require("../components/snackbar");
 const { default: authApi } = require("./auth.api");
 
-const handleError = async (error, message = "Request error !") => {
-  switch (error.status) {
+export const handleError = async (status, message = "Request error !") => {
+  switch (status) {
     case 401:
       Snackbar.show("Unauthorized !", "error");
       await authApi.logout();
@@ -15,8 +15,4 @@ const handleError = async (error, message = "Request error !") => {
       Snackbar.show(message, "error");
       break;
   }
-};
-
-module.exports = {
-  handleError,
 };
